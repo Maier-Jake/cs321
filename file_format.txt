@@ -1,4 +1,7 @@
-[Insert the file format we're going to use]
+Array of terrain data written out in one block.
+dimensions of terrain
+input parameters
 
-DO THE THING
-AND THE OTHER THING
+1 Monster 1 [coordinates] [name] [other data]
+2 Monster 2 [coordinates] [name] [other data]
+3 Loot 1 [coordinates] [name] [other data]
