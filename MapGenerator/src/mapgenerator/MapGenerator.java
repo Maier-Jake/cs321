@@ -8,6 +8,7 @@ package mapgenerator;
 /**
  *
  * @author jaked
+ * Test Message
  */
 public class MapGenerator {
 
