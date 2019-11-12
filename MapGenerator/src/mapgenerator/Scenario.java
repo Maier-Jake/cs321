@@ -21,41 +21,59 @@ public class Scenario
     
     public void addMonster(Monster newMonster)
     {
-        monsterList.add(newMonster);  // Change to deep copy
+        monsterList.add(newMonster.copyMonster());
     }
     
     public void addLootPile(LootPile newLootPile)
     {
-        lootPileList.add(newLootPile);  // Change to deep copy
+        lootPileList.add(newLootPile.copyLootPile());
     }
     
     public Map getMap()
     {
-        return currentMap;  // Change to deep copy
+        return currentMap;
     }
     
     public ArrayList<Monster> getMonsterList()
     {
-        return monsterList;  // Change to deep copy
+        ArrayList<Monster> returnList = new ArrayList<>(monsterList.size());
+        for(int i = 0; i < monsterList.size(); i++)
+        {
+            returnList.set(i, monsterList.get(i).copyMonster());
+        }
+        return returnList;
     }
     
     public ArrayList<LootPile> getLootPileList()
     {
-        return lootPileList;  // Change to deep copy
+        ArrayList<LootPile> returnList = new ArrayList<>(lootPileList.size());
+        for(int i = 0; i < lootPileList.size(); i++)
+        {
+            returnList.set(i, lootPileList.get(i).copyLootPile());
+        }
+        return returnList;
     }
     
     public void setMap(Map newMap)
     {
-        currentMap = newMap;  // Change to deep copy
+        currentMap = newMap;
     }
     
     public void setMonsterList(ArrayList<Monster> newMonsterList)
     {
-        monsterList = newMonsterList;  // Change to deep copy
+        monsterList.clear();
+        for(Monster newMonster : newMonsterList) 
+        {
+            monsterList.add(newMonster.copyMonster());
+        }
     }
     
     public void setLootPileList(ArrayList<LootPile> newLootPileList)
     {
-        lootPileList = newLootPileList;  // Change to deep copy
+        lootPileList.clear();
+        for(LootPile newLootPile : newLootPileList)
+        {
+            lootPileList.add(newLootPile.copyLootPile());
+        }
     }
 }
