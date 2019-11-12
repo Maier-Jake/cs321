@@ -4,10 +4,8 @@ package mapgenerator;
  *
  * @author CS 321 Team 1
  */
-public class LootPile implements MapCoordinates
+public class LootPile extends MapCoordinates
 {
-    private int xCoord;
-    private int yCoord;
     private int goldPieces;
     private int itemCount;
     
@@ -19,23 +17,10 @@ public class LootPile implements MapCoordinates
         itemCount = newItemCount;
     }
     
-    @Override
-    public LootPile clone()
+    public LootPile copyLootPile()
     {
         LootPile returnLootPile = new LootPile(xCoord, yCoord, goldPieces, itemCount);
         return returnLootPile;
-    }
-            
-    @Override
-    public int getXCoord()
-    {
-        return xCoord;
-    }
-    
-    @Override
-    public int getYCoord()
-    {
-        return yCoord;
     }
     
     public int getGoldPieces()
@@ -46,18 +31,6 @@ public class LootPile implements MapCoordinates
     public int getItemCount()
     {
         return itemCount;
-    }
-    
-    @Override
-    public void setXCoord(int newX)
-    {
-        xCoord = newX;
-    }
-    
-    @Override
-    public void setYCoord(int newY)
-    {
-        yCoord = newY;
     }
     
     public void setGoldPieces(int newGoldPieces)

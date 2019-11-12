@@ -50,7 +50,7 @@ public class Map
         
         for(int i = 0; i < numCols * numRows; i++)
         {
-            MapTile newMapTile = mapTileList.get(i).clone();
+            MapTile newMapTile = mapTileList.get(i).copyMapTile();
             returnList.add(newMapTile);
         }
         

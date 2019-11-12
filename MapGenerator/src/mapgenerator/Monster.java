@@ -4,10 +4,8 @@ package mapgenerator;
  *
  * @author CS 321 Team 1
  */
-public class Monster implements MapCoordinates
+public class Monster extends MapCoordinates
 {
-    private int xCoord;
-    private int yCoord;
     private int monsterIndex;
     
     public Monster(int newXCoord, int newYCoord, int newMonsterIndex)
@@ -17,40 +15,15 @@ public class Monster implements MapCoordinates
         monsterIndex = newMonsterIndex;
     }
     
-    @Override
-    public Monster clone()
+    public Monster copyMonster()
     {
         Monster returnMonster = new Monster(xCoord, yCoord, monsterIndex);
         return returnMonster;
-    }
-            
-    @Override
-    public int getXCoord()
-    {
-        return xCoord;
-    }
-    
-    @Override
-    public int getYCoord()
-    {
-        return yCoord;
     }
     
     public int getMonsterIndex()
     {
         return monsterIndex;
-    }
-    
-    @Override
-    public void setXCoord(int newX)
-    {
-        xCoord = newX;
-    }
-    
-    @Override
-    public void setYCoord(int newY)
-    {
-        yCoord = newY;
     }
     
     public void setMonsterIndex(int newMonsterIndex)

@@ -4,11 +4,28 @@ package mapgenerator;
  *
  * @author CS 321 Team 1
  */
-public interface MapCoordinates 
+public abstract class MapCoordinates 
 {
-    int getXCoord();
-    int getYCoord();
+    protected int xCoord;
+    protected int yCoord;
     
-    void setXCoord(int newX);
-    void setYCoord(int newY);
+    public int getXCoord()
+    {
+        return xCoord;
+    }
+    
+    public int getYCoord()
+    {
+        return yCoord;
+    }
+    
+    public void setXCoord(int newX)
+    {
+        xCoord = newX;
+    }
+    
+    public void setYCoord(int newY)
+    {
+        yCoord = newY;
+    }
 }
