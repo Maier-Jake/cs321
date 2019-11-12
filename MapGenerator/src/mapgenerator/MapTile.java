@@ -16,6 +16,13 @@ public class MapTile implements MapCoordinates
         yCoord = newYCoord;
         terrainIndex = newTerrainIndex;
     }
+    
+    @Override
+    public MapTile clone()
+    {
+        MapTile returnTile = new MapTile(xCoord, yCoord, terrainIndex);
+        return returnTile;
+    }
             
     @Override
     public int getXCoord()

@@ -16,6 +16,13 @@ public class Monster implements MapCoordinates
         yCoord = newYCoord;
         monsterIndex = newMonsterIndex;
     }
+    
+    @Override
+    public Monster clone()
+    {
+        Monster returnMonster = new Monster(xCoord, yCoord, monsterIndex);
+        return returnMonster;
+    }
             
     @Override
     public int getXCoord()

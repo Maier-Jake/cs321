@@ -46,7 +46,15 @@ public class Map
     
     public ArrayList<MapTile> getMapTiles()
     {
-        return mapTileList;  // Change to deep copy
+        ArrayList<MapTile> returnList = new ArrayList<>(numCols * numRows);
+        
+        for(int i = 0; i < numCols * numRows; i++)
+        {
+            MapTile newMapTile = mapTileList.get(i).clone();
+            returnList.add(newMapTile);
+        }
+        
+        return returnList;
     }
     
     public int getNumCols()

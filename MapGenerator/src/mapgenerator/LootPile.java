@@ -18,6 +18,13 @@ public class LootPile implements MapCoordinates
         goldPieces = newGP;
         itemCount = newItemCount;
     }
+    
+    @Override
+    public LootPile clone()
+    {
+        LootPile returnLootPile = new LootPile(xCoord, yCoord, goldPieces, itemCount);
+        return returnLootPile;
+    }
             
     @Override
     public int getXCoord()
