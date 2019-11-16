@@ -35,6 +35,7 @@ public class Map
         generateMapTileList();
     }
     
+    //I dont understand this usecase scenario -- Jake
     public void generateNewMap(int newNumCols, int newNumRows, int newBiomeIndex)
     {
         numCols = newNumCols;
