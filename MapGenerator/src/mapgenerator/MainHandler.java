@@ -22,7 +22,7 @@ public class MainHandler
      * line by line to generate a new Scenario file to
      * be used by the program
      */
-    private static Scenario processScenario(Scanner s) {
+    private static Scenario loadScenario(Scanner s) {
         Scenario newScenario;
         String line, token;
         int startI, endI;
@@ -129,7 +129,7 @@ public class MainHandler
         Scanner infile;
         
         final JFileChooser fileChooser = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("Text Files", "txt");
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("ScenarioFiles", "Scenario");
         fileChooser.setFileFilter(filter);
         int returnVal = fileChooser.showOpenDialog(frame);
         if(returnVal == JFileChooser.APPROVE_OPTION) {
@@ -146,7 +146,7 @@ public class MainHandler
             infile = new Scanner(System.in);
         }
         
-        activeScenario = processScenario(infile);
+        activeScenario = loadScenario(infile);
         
             
         
