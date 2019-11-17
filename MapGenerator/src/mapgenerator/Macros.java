@@ -50,5 +50,17 @@ public class Macros {
                 return -1;
         }
     }
+    public static String readChar(Scanner s)
+    {
+        s.useDelimiter("");
+        String c = "";
+        try {
+            c = s.next();
+        } catch (NoSuchElementException ex)
+        {
+        }
+        s.useDelimiter(" ");
+        return c;
+    }
 }
 

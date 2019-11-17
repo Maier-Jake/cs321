@@ -4,6 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.filechooser.*;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.NoSuchElementException;
 
@@ -24,7 +25,7 @@ public class MainHandler
     private static Scenario processScenario(Scanner s) {
         Scenario newScenario;
         String line, token;
-        int startI;
+        int startI, endI;
         
         //read first line and get width of map.
         int width;
@@ -33,7 +34,7 @@ public class MainHandler
         startI = line.indexOf(": ")+2;
         token = line.substring(startI);
         width = Macros.readInt(token);
-        
+        System.out.println("Width is: " + width);
         //read second line and get length of map.
         int length;
         line = Macros.readLine(s);
@@ -55,16 +56,71 @@ public class MainHandler
         biomeIndex = Macros.getBiomeIndex(biome);
         if(biomeIndex == -1) return null;
         
+        //create new 2D array of tiles
+        ArrayList<ArrayList<MapTile>> aMap = new ArrayList<ArrayList<MapTile>>();
+        for(int i = 0; i < width; i++)  {
+            aMap.add(new ArrayList<MapTile>());
+        }
+        //read the .txt file and load into 2D array
+        for (int x = 0; x < width; x++)
+        { for (int y = 0; y < length; y++)
+            {
+                int terrainIndex = Integer.parseInt(Macros.readChar(s));
+                MapTile newMapTile = new MapTile(x, y, terrainIndex);
+                aMap.get(x).add(newMapTile);
+            }
+        s.nextLine();
+        }
+        
         //create new Map using this knowledge.
-        Map newMap = Map(width, length, biomeIndex);
+        Map newMap = new Map(width, length, biomeIndex);
+        newMap.setMap(aMap);
+        newMap.printMap();
+
+        //skip Entities: line
+        s.nextLine();
         
+        //Create arraylists of monsters and lootpiles
+        ArrayList<Monster> monsterList = new ArrayList<Monster>();
+        ArrayList<LootPile> lootList = new ArrayList<LootPile>();
         
-        //Line1: Width:
-        //Line2: Height:
-        // Map(int newNumCols, int newNumRows, int newBiomeIndex)
-        // Scenario(Map newMap, ArrayList<Monster> newMonsterList, ArrayList<LootPile> newLootPileList)
-        
-        return null;
+        while(s.hasNextLine())
+        {
+            //get index
+            line = Macros.readLine(s);
+            System.out.println(line);
+            int index = Integer.parseInt(line.substring(0,1));
+            //get coordinates
+            line = line.substring(line.indexOf("("));
+            startI = line.indexOf("(")+1;
+            endI = line.indexOf(",");
+            int x = Integer.parseInt(line.substring(startI,endI));
+            startI = line.indexOf(",")+1;
+            endI = line.indexOf(")");
+            int y = Integer.parseInt(line.substring(startI,endI));
+            Coordinates coords = new Coordinates(x, y);
+            
+            //get name & or info
+            line = line.substring(endI);
+            if (line.contains("Monster:"))
+            {
+                line = line.substring(line.indexOf("\"")+1);
+                
+                String name = line.substring(0,line.indexOf("\""));
+                Monster newMonster = new Monster(coords, index, name);
+                monsterList.add(newMonster);
+            }
+            else if(line.contains("LootPile:"))
+            {
+                line = line.substring(line.indexOf("\"")+1);
+                int numItems = Integer.parseInt(line.substring(0,line.indexOf(",")));
+                line = line.substring(line.indexOf(",")+1);
+                int numGP = Integer.parseInt(line.substring(0,line.indexOf("\"")));
+                LootPile newLoot = new LootPile(coords, numGP, numItems);
+                lootList.add(newLoot);
+            }
+        }
+        return new Scenario(newMap, monsterList, lootList);
     }
     
     public static void main(String[] args) 

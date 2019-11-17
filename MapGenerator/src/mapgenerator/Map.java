@@ -8,22 +8,26 @@ import java.util.ArrayList;
  */
 public class Map 
 {
-    private ArrayList<MapTile> mapTileList;
+    private ArrayList<ArrayList<MapTile>> mapTileList;
+    
     private int numCols;
     private int numRows;
     private int biomeIndex;
     
     private void generateMapTileList()
     {
-        mapTileList = new ArrayList<>(numCols * numRows);
-        
-        for(int i = 0; i < numCols * numRows; i++)
-        {
-            int x = i % numRows;
-            int y = i / numRows;
-            int terrainIndex = 0;
-            MapTile newMapTile = new MapTile(x, y, terrainIndex);
-            mapTileList.add(newMapTile);
+        // List<List<String>> listOfLists = new ArrayList<List<String>>(size); 
+        mapTileList = new ArrayList<ArrayList<MapTile>>(); 
+        for(int i = 0; i < numCols; i++)  {
+            mapTileList.add(new ArrayList<MapTile>());
+        }
+        for (int x = 0; x < numCols; x++)
+        { for (int y = 0; y < numRows; y++)
+            {
+                int terrainIndex = 0;
+                MapTile newMapTile = new MapTile(x, y, terrainIndex);
+                mapTileList.get(x).add(newMapTile);
+            }
         }
     }
     
@@ -45,14 +49,16 @@ public class Map
         generateMapTileList();
     }
     
-    public ArrayList<MapTile> getMapTiles()
+    public ArrayList<ArrayList<MapTile>> getMapTiles()
     {
-        ArrayList<MapTile> returnList = new ArrayList<>(numCols * numRows);
+        ArrayList<ArrayList<MapTile>> returnList = new ArrayList<ArrayList<MapTile>>(); 
         
-        for(int i = 0; i < numCols * numRows; i++)
-        {
-            MapTile newMapTile = mapTileList.get(i).copyMapTile();
-            returnList.add(newMapTile);
+        for (int x = 0; x < numCols; x++)
+        { for (int y = 0; y < numRows; y++)
+            {
+                MapTile newMapTile = mapTileList.get(x).get(y);
+                returnList.get(x).add(newMapTile);
+            }
         }
         
         return returnList;
@@ -86,5 +92,20 @@ public class Map
     public void setBiomeIndex(int newBiomeIndex)
     {
         biomeIndex = newBiomeIndex;
+    }
+    public void setMap(ArrayList<ArrayList<MapTile>> newMap)
+    {
+        mapTileList = newMap;
+    }
+    public void printMap()
+    {
+        System.out.println();
+        for (int x = 0; x < numCols; x++)
+        { for (int y = 0; y < numRows; y++)
+            {
+                System.out.print(mapTileList.get(x).get(y).getTerrainIndex());
+            }
+        System.out.println();
+        }
     }
 }

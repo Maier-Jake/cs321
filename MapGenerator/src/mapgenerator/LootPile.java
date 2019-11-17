@@ -4,22 +4,28 @@ package mapgenerator;
  *
  * @author CS 321 Team 1
  */
-public class LootPile extends MapCoordinates
+public class LootPile
 {
     private int goldPieces;
     private int itemCount;
+    public final Coordinates coords;
     
     public LootPile(int newXCoord, int newYCoord, int newGP, int newItemCount)
     {
-        xCoord = newXCoord;
-        yCoord = newYCoord;
+        coords = new Coordinates(newXCoord, newYCoord);
+        goldPieces = newGP;
+        itemCount = newItemCount;
+    }
+    public LootPile(Coordinates c, int newGP, int newItemCount)
+    {
+        coords = c;
         goldPieces = newGP;
         itemCount = newItemCount;
     }
     
     public LootPile copyLootPile()
     {
-        LootPile returnLootPile = new LootPile(xCoord, yCoord, goldPieces, itemCount);
+        LootPile returnLootPile = new LootPile(new Coordinates(coords.getX(),coords.getY()), goldPieces, itemCount);
         return returnLootPile;
     }
     
