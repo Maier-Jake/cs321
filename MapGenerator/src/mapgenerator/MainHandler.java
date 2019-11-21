@@ -17,6 +17,42 @@ public class MainHandler
     
     private static Scenario activeScenario;
     
+    public static void main(String[] args) 
+    {
+        JFrame frame = new JFrame();
+        Scanner infile;
+        
+        final JFileChooser fileChooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("ScenarioFiles", "Scenario");
+        fileChooser.setFileFilter(filter);
+        int returnVal = fileChooser.showOpenDialog(frame);
+        if(returnVal == JFileChooser.APPROVE_OPTION) {
+            System.out.println("You chose to open this file: " + fileChooser.getSelectedFile().getName());
+            try {
+                infile = new Scanner(fileChooser.getSelectedFile());
+            } catch (FileNotFoundException ex) {
+                System.err.println("The file could not be opened.");
+                System.out.println("Exiting program");
+                return;
+            }   
+        } else {
+            System.out.println("This should never run!");
+            infile = new Scanner(System.in);
+        }
+        
+        activeScenario = loadScenario(infile);
+        
+            
+        
+        frame.setLayout(new FlowLayout());
+
+        frame.pack();
+        frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //JFileChooser
+        
+    }
+    
     /**
      * processScenario is used to read in a .txt file
      * line by line to generate a new Scenario file to
@@ -121,42 +157,6 @@ public class MainHandler
             }
         }
         return new Scenario(newMap, monsterList, lootList);
-    }
-    
-    public static void main(String[] args) 
-    {
-        JFrame frame = new JFrame();
-        Scanner infile;
-        
-        final JFileChooser fileChooser = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("ScenarioFiles", "Scenario");
-        fileChooser.setFileFilter(filter);
-        int returnVal = fileChooser.showOpenDialog(frame);
-        if(returnVal == JFileChooser.APPROVE_OPTION) {
-            System.out.println("You chose to open this file: " + fileChooser.getSelectedFile().getName());
-            try {
-                infile = new Scanner(fileChooser.getSelectedFile());
-            } catch (FileNotFoundException ex) {
-                System.err.println("The file could not be opened.");
-                System.out.println("Exiting program");
-                return;
-            }   
-        } else {
-            System.out.println("This should never run!");
-            infile = new Scanner(System.in);
-        }
-        
-        activeScenario = loadScenario(infile);
-        
-            
-        
-        frame.setLayout(new FlowLayout());
-
-        frame.pack();
-        frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //JFileChooser
-        
     }
     
 }

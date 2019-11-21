@@ -13,7 +13,7 @@ public class Map
     private int numCols;
     private int numRows;
     private int biomeIndex;
-        java.util.Random rand = new java.util.Random(); // random number generator base function
+    java.util.Random rand = new java.util.Random(); // random number generator base function
     
     private double meanTile = 0.0;       // the average tile type 
     private double terrainClutter = 0.3; // the amount of clutter the terrain has
@@ -43,54 +43,54 @@ public class Map
                 j = 0; 
             }
             MapTile newMapTile = new MapTile(x, y, terrainIndex);
-            mapTileList.add(newMapTile);
+            // mapTileList.add(newMapTile);
         }
-        if (biomeIndex == 2) {
-                
-                double doubleCols = (double)numCols; // cast variables to doubles
-                double doubleRows = (double)numRows;
-                
-                int curX = 0; // current index in the data arrays
-                int curY = 0;
-                
-                int[][] starts = new int[numCols*numRows][2]; // build data arrays
-                int[][] ends = new int[numCols*numRows][2];
-                
-                int startCol = (int)Math.round(rand.nextDouble()*doubleCols); // create starting point
-                int startRow = (int)Math.round(rand.nextDouble()*doubleRows);
-                
-                starts[curX][0] = startCol; // fill starting point in data arrays
-                starts[curX][1] = startRow;
-                
-                int col = startCol;
-                int row = startRow;
-                // begin loop
-                while(curX < (numCols*numRows)-2){              // loop through data arrays
-                    curX++; // increment x value
-                    
-                    double dir = rand.nextDouble() * 4.0;       // choose direction
-                    if (dir < 1.0) {col = col + 1;}                // North
-                    if (dir >= 1.0 && dir < 2.0) {col = col - 1;}  // South
-                    if (dir >= 2.0 && dir < 3.0) {row = row + 1;}  // East
-                    if (dir >= 3.0) {row = row - 1;}               // West
-                    
-                    ends[curX][0] = col;       // fill current ends with the new coordinate
-                    ends[curX][1] = row;
-                    
-                    starts[curX+1][0] = col;   // fill next start with current coordinate
-                    starts[curX+1][1] = row;
-                }
+        if (biomeIndex == 2) 
+        {
+            double doubleCols = (double)numCols; // cast variables to doubles
+            double doubleRows = (double)numRows;
+
+            int curX = 0; // current index in the data arrays
+            int curY = 0;
+
+            int[][] starts = new int[numCols*numRows][2]; // build data arrays
+            int[][] ends = new int[numCols*numRows][2];
+
+            int startCol = (int)Math.round(rand.nextDouble()*doubleCols); // create starting point
+            int startRow = (int)Math.round(rand.nextDouble()*doubleRows);
+
+            starts[curX][0] = startCol; // fill starting point in data arrays
+            starts[curX][1] = startRow;
+
+            int col = startCol;
+            int row = startRow;
+            // begin loop
+            while(curX < (numCols*numRows)-2){              // loop through data arrays
+                curX++; // increment x value
+
+                double dir = rand.nextDouble() * 4.0;       // choose direction
+                if (dir < 1.0) {col = col + 1;}                // North
+                if (dir >= 1.0 && dir < 2.0) {col = col - 1;}  // South
+                if (dir >= 2.0 && dir < 3.0) {row = row + 1;}  // East
+                if (dir >= 3.0) {row = row - 1;}               // West
+
+                ends[curX][0] = col;       // fill current ends with the new coordinate
+                ends[curX][1] = row;
+
+                starts[curX+1][0] = col;   // fill next start with current coordinate
+                starts[curX+1][1] = row;
+            }
         }
     }
     
-    public Map(int newNumCols, int newNumRows, int newBiomeIndex, double mean, double clutter)
+    public Map(int newNumCols, int newNumRows, int newBiomeIndex/*, double mean, double clutter*/)
     {
         numCols = newNumCols;
         numRows = newNumRows;
         biomeIndex = newBiomeIndex;
-        meanTile = mean;
-        terrainClutter = clutter;
-        generateMapTileList();
+        // meanTile = mean;
+        // terrainClutter = clutter;
+        // generateMapTileList();
     }
     
     public void generateNewMap(int newNumCols, int newNumRows, int newBiomeIndex, double mean, double clutter)
@@ -109,7 +109,8 @@ public class Map
         ArrayList<ArrayList<MapTile>> returnList = new ArrayList<ArrayList<MapTile>>(); 
         
         for (int x = 0; x < numCols; x++)
-        { for (int y = 0; y < numRows; y++)
+        { 
+            for (int y = 0; y < numRows; y++)
             {
                 MapTile newMapTile = mapTileList.get(x).get(y);
                 returnList.get(x).add(newMapTile);
@@ -144,26 +145,45 @@ public class Map
         numRows = newNumRows;
     }
     
-        public void setBiomeIndex(int newBiomeIndex)
+    public void setBiomeIndex(int newBiomeIndex)
     {
         biomeIndex = newBiomeIndex;
     }
-    public double getTerrainClutter() {
+    
+    public double getTerrainClutter() 
+    {
         return terrainClutter;
     }
-    public void setTerrainClutter(double newTerrainClutter) {
+    
+    public void setTerrainClutter(double newTerrainClutter) 
+    {
         terrainClutter = newTerrainClutter;
     }
-    public double getTerrainAverage() {
+    
+    public double getTerrainAverage() 
+    {
         return meanTile;
-   }
-   public void setTerrainAverage(double newMeanTile) {
-       meanTile = newMeanTile;
-   }
+    }
+    
+    public void setTerrainAverage(double newMeanTile) 
+    {
+        meanTile = newMeanTile;
+    }
+    
     public void setMap(ArrayList<ArrayList<MapTile>> newMap)
     {
-        mapTileList = newMap;
+        mapTileList.clear();
+        
+        for (int x = 0; x < numCols; x++)
+        { 
+            for (int y = 0; y < numRows; y++)
+            {
+                MapTile newMapTile = newMap.get(x).get(y);
+                mapTileList.get(x).add(newMapTile);
+            }
+        }
     }
+    
     public void printMap()
     {
         System.out.println();
