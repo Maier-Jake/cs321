@@ -170,6 +170,7 @@ public class Map
         meanTile = newMeanTile;
     }
     
+    //this assumes that the map is the same size as 
     public void setMap(ArrayList<ArrayList<MapTile>> newMap)
     {
         mapTileList.clear();
