@@ -171,7 +171,7 @@ public class Map
     {
         meanTile = newMeanTile;
     }
-    
+
     // Assumes that numcols and numrows are the same for current and new maps
     public void setMap(ArrayList<ArrayList<MapTile>> newMap)
     {
