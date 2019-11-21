@@ -106,14 +106,16 @@ public class Map
     
     public ArrayList<ArrayList<MapTile>> getMapTiles()
     {
-        ArrayList<ArrayList<MapTile>> returnList = new ArrayList<ArrayList<MapTile>>(); 
+        ArrayList<ArrayList<MapTile>> returnList = new ArrayList<ArrayList<MapTile>>();
         
-        for (int x = 0; x < numCols; x++)
-        { 
-            for (int y = 0; y < numRows; y++)
+        for (int y = 0; y < numRows; y++)
+        {
+            returnList.add(new ArrayList<MapTile>());
+            
+            for (int x = 0; x < numCols; x++)
             {
-                MapTile newMapTile = mapTileList.get(x).get(y);
-                returnList.get(x).add(newMapTile);
+                MapTile newMapTile = mapTileList.get(y).get(x);
+                returnList.get(y).add(newMapTile);
             }
         }
         
@@ -170,16 +172,19 @@ public class Map
         meanTile = newMeanTile;
     }
     
+    // Assumes that numcols and numrows are the same for current and new maps
     public void setMap(ArrayList<ArrayList<MapTile>> newMap)
     {
         mapTileList.clear();
         
-        for (int x = 0; x < numCols; x++)
-        { 
-            for (int y = 0; y < numRows; y++)
+        for (int y = 0; y < numRows; y++)
+        {
+            mapTileList.add(new ArrayList<MapTile>());
+            
+            for (int x = 0; x < numCols; x++)
             {
-                MapTile newMapTile = newMap.get(x).get(y);
-                mapTileList.get(x).add(newMapTile);
+                MapTile newMapTile = newMap.get(y).get(x);
+                mapTileList.get(y).add(newMapTile);
             }
         }
     }
@@ -187,12 +192,13 @@ public class Map
     public void printMap()
     {
         System.out.println();
-        for (int x = 0; x < numCols; x++)
-        { for (int y = 0; y < numRows; y++)
+        for (int y = 0; y < numRows; y++)
+        { 
+            for (int x = 0; x < numCols; x++)
             {
-                System.out.print(mapTileList.get(x).get(y).getTerrainIndex());
+                System.out.print(mapTileList.get(y).get(x).getTerrainIndex());
             }
-        System.out.println();
+            System.out.println();
         }
     }
 }
