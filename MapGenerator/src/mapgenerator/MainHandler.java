@@ -27,7 +27,8 @@ public class MainHandler
         FileNameExtensionFilter filter = new FileNameExtensionFilter("ScenarioFiles", "Scenario");
         fileChooser.setFileFilter(filter);
         int returnVal = fileChooser.showOpenDialog(frame);
-        if(returnVal == JFileChooser.APPROVE_OPTION) {
+        if(returnVal == JFileChooser.APPROVE_OPTION) 
+        {
             System.out.println("You chose to open this file: " + fileChooser.getSelectedFile().getName());
             try {
                 infile = new Scanner(fileChooser.getSelectedFile());
@@ -36,7 +37,9 @@ public class MainHandler
                 System.out.println("Exiting program");
                 return;
             }   
-        } else {
+        } 
+        else 
+        {
             System.out.println("This should never run!");
             infile = new Scanner(System.in);
         }
@@ -60,7 +63,8 @@ public class MainHandler
      * line by line to generate a new Scenario file to
      * be used by the program
      */
-    private static Scenario loadScenario(Scanner s) {
+    private static Scenario loadScenario(Scanner s) 
+    {
         Scenario newScenario;
         String line, token;
         int startI, endI;
@@ -96,18 +100,21 @@ public class MainHandler
         
         //create new 2D array of tiles
         ArrayList<ArrayList<MapTile>> aMap = new ArrayList<ArrayList<MapTile>>();
-        for(int i = 0; i < length; i++)  {
+        
+        for(int i = 0; i < length; i++)  
+        {
             aMap.add(new ArrayList<MapTile>());
         }
         //read the .txt file and load into 2D array
         for (int y = 0; y < length; y++)
-        { for (int x = 0; x < width; x++)
+        { 
+            for (int x = 0; x < width; x++)
             {
                 int terrainIndex = Integer.parseInt(Macros.readChar(s));
                 MapTile newMapTile = new MapTile(x, y, terrainIndex);
                 aMap.get(y).add(newMapTile);
             }
-        s.nextLine();
+            s.nextLine();
         }
         
         //create new Map using this knowledge.
