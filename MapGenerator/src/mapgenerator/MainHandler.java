@@ -1,12 +1,14 @@
 package mapgenerator;
 
 import java.awt.*;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.filechooser.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.NoSuchElementException;
+import java.io.File;
 
 /**
  *
@@ -67,8 +69,6 @@ public class MainHandler
             System.out.println("This should never run!");
             infile = new Scanner(System.in);
         }
-        
-        // frame.setLayout(new FlowLayout());
 
         // frame.pack();
         // frame.setVisible(true);
@@ -177,4 +177,28 @@ public class MainHandler
         return new Scenario(newMap, monsterList, lootList);
     }
     
+    
+    public static void exportScenario()
+    {
+        //ask the user for a name for the file
+        File tempFile = new File("c://Users//jaked//Documents//NetBeansProjects//cs321//MapGenerator//tempfile.scenario");
+        PrintWriter fileWriter = Macros.getPrintWriter(tempFile);
+        //Create the file
+        fileWriter.print("jake is cool");
+        /*
+        // parent component of the dialog
+        JFrame parentFrame = new JFrame();
+
+        JFileChooser fileChooser = new JFileChooser();
+        
+        fileChooser.setDialogTitle("Specify a file to save");    
+
+        int userSelection = fileChooser.showSaveDialog(parentFrame);
+
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            File fileToSave = fileChooser.getSelectedFile();
+            System.out.println("Save as file: " + fileToSave.getAbsolutePath());
+        }
+        */
+    }
 }
