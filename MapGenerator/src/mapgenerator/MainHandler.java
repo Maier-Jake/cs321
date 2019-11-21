@@ -94,16 +94,16 @@ public class MainHandler
         
         //create new 2D array of tiles
         ArrayList<ArrayList<MapTile>> aMap = new ArrayList<ArrayList<MapTile>>();
-        for(int i = 0; i < width; i++)  {
+        for(int i = 0; i < length; i++)  {
             aMap.add(new ArrayList<MapTile>());
         }
         //read the .txt file and load into 2D array
-        for (int x = 0; x < width; x++)
-        { for (int y = 0; y < length; y++)
+        for (int y = 0; y < length; y++)
+        { for (int x = 0; x < width; x++)
             {
                 int terrainIndex = Integer.parseInt(Macros.readChar(s));
                 MapTile newMapTile = new MapTile(x, y, terrainIndex);
-                aMap.get(x).add(newMapTile);
+                aMap.get(y).add(newMapTile);
             }
         s.nextLine();
         }
