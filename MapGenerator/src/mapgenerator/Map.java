@@ -88,6 +88,8 @@ public class Map
         numCols = newNumCols;
         numRows = newNumRows;
         biomeIndex = newBiomeIndex;
+        
+        ArrayList<ArrayList<MapTile>> mapTileList = new ArrayList<ArrayList<MapTile>>();
         // meanTile = mean;
         // terrainClutter = clutter;
         // generateMapTileList();

@@ -17,10 +17,35 @@ public class MainHandler
     
     private static Scenario activeScenario;
     
-    public static void main(String[] args) 
+    public static void main(String[] args) throws InterruptedException 
+    {
+        InitialView openingView = new InitialView();
+        openingView.displayView();
+        while(openingView.getButtonState() == 0)
+        {
+           Thread.sleep(500);
+           /*int x = openingView.getButtonState();
+           System.out.println(x);*/
+        }
+        
+        if(openingView.getButtonState() == 2)
+        {
+            activeScenario = loadScenario(/*infile*/);
+        }
+        
+    }
+    
+    /**
+     * processScenario is used to read in a .txt file
+     * line by line to generate a new Scenario file to
+     * be used by the program
+     */
+    private static Scenario loadScenario(/*Scanner s*/) 
     {
         JFrame frame = new JFrame();
-        Scanner infile;
+        Scanner infile = null;
+        
+        Scenario newScenario = null;
         
         final JFileChooser fileChooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter("ScenarioFiles", "Scenario");
@@ -34,7 +59,7 @@ public class MainHandler
             } catch (FileNotFoundException ex) {
                 System.err.println("The file could not be opened.");
                 System.out.println("Exiting program");
-                return;
+                return newScenario;
             }   
         } 
         else 
@@ -43,33 +68,19 @@ public class MainHandler
             infile = new Scanner(System.in);
         }
         
-        activeScenario = loadScenario(infile);
-        
-            
-        
-        frame.setLayout(new FlowLayout());
+        // frame.setLayout(new FlowLayout());
 
-        frame.pack();
-        frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //JFileChooser
+        // frame.pack();
+        // frame.setVisible(true);
+        // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-    }
-    
-    /**
-     * processScenario is used to read in a .txt file
-     * line by line to generate a new Scenario file to
-     * be used by the program
-     */
-    private static Scenario loadScenario(Scanner s) 
-    {
-        Scenario newScenario;
+        // Scenario newScenario;
         String line, token;
         int startI, endI;
         
         //read first line and get width of map.
         int width;
-        line = Macros.readLine(s);
+        line = Macros.readLine(infile);
         if(line.equals("nullLine")) return null;
         startI = line.indexOf(": ")+2;
         token = line.substring(startI);
@@ -77,7 +88,7 @@ public class MainHandler
         System.out.println("Width is: " + width);
         //read second line and get length of map.
         int length;
-        line = Macros.readLine(s);
+        line = Macros.readLine(infile);
         if(line.equals("nullLine")) return null;
         startI = line.indexOf(": ")+2;
         token = line.substring(startI);
@@ -87,7 +98,7 @@ public class MainHandler
         //read third line and get biome of the map
         String biome;
         int biomeIndex;
-        line = Macros.readLine(s);
+        line = Macros.readLine(infile);
         if(line.equals("nullLine")) return null;
         startI = line.indexOf(": ")+2;
         token = line.substring(startI);
@@ -108,11 +119,11 @@ public class MainHandler
         { 
             for (int x = 0; x < width; x++)
             {
-                int terrainIndex = Integer.parseInt(Macros.readChar(s));
+                int terrainIndex = Integer.parseInt(Macros.readChar(infile));
                 MapTile newMapTile = new MapTile(x, y, terrainIndex);
                 aMap.get(y).add(newMapTile);
             }
-            s.nextLine();
+            infile.nextLine();
         }
         
         //create new Map using this knowledge.
@@ -121,16 +132,16 @@ public class MainHandler
         newMap.printMap();
 
         //skip Entities: line
-        s.nextLine();
+        infile.nextLine();
         
         //Create arraylists of monsters and lootpiles
         ArrayList<Monster> monsterList = new ArrayList<Monster>();
         ArrayList<LootPile> lootList = new ArrayList<LootPile>();
         
-        while(s.hasNextLine())
+        while(infile.hasNextLine())
         {
             //get index
-            line = Macros.readLine(s);
+            line = Macros.readLine(infile);
             System.out.println(line);
             int index = Integer.parseInt(line.substring(0,1));
             //get coordinates

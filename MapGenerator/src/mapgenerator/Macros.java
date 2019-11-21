@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package mapgenerator;
 
 import java.util.NoSuchElementException;
@@ -10,7 +5,7 @@ import java.util.Scanner;
 
 /**
  *
- * @author jaked
+ * @author CS 321 Team 1
  */
 public class Macros {
     public static final int FORESTINDEX = 0, DUNGEONINDEX = 1, SWAMPINDEX = 2;
@@ -25,6 +20,7 @@ public class Macros {
         }
         return number;
     }
+    
     public static String readLine(Scanner s)
     {
         String line = "nullLine";
@@ -36,6 +32,7 @@ public class Macros {
         }
         return line;
     }
+    
     public static int getBiomeIndex(String s)
     {
         switch (s) {
@@ -50,6 +47,7 @@ public class Macros {
                 return -1;
         }
     }
+    
     public static String readChar(Scanner s)
     {
         s.useDelimiter("");
