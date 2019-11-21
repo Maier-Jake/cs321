@@ -1,12 +1,13 @@
 package mapgenerator;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author CS 321 Team 1
  */
-public class Scenario 
+public class Scenario implements Serializable 
 {
     private Map currentMap;
     private ArrayList<Monster> monsterList;

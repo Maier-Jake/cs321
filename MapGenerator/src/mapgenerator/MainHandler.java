@@ -8,6 +8,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.NoSuchElementException;
+import java.io.File;
 
 /**
  *
@@ -168,9 +169,15 @@ public class MainHandler
         return new Scenario(newMap, monsterList, lootList);
     }
     
+    
     public static void exportScenario()
     {
         //ask the user for a name for the file
+        File tempFile = new File("c://Users//jaked//Documents//NetBeansProjects//cs321//MapGenerator//tempfile.scenario");
+        PrintWriter fileWriter = Macros.getPrintWriter(tempFile);
+        //Create the file
+        fileWriter.print("jake is cool");
+        /*
         // parent component of the dialog
         JFrame parentFrame = new JFrame();
 
@@ -184,6 +191,6 @@ public class MainHandler
             File fileToSave = fileChooser.getSelectedFile();
             System.out.println("Save as file: " + fileToSave.getAbsolutePath());
         }
-
+        */
     }
 }

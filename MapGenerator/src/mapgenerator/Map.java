@@ -28,8 +28,6 @@ public class Map
             int y = i / numRows;
             int terrainIndex = 0;
             
-            
-            
             // use gaussian noise generator for open biomes
             double noise = rand.nextGaussian() * Math.sqrt(terrainClutter) + meanTile;
             noise = Math.abs(noise);
@@ -88,6 +86,7 @@ public class Map
         numCols = newNumCols;
         numRows = newNumRows;
         biomeIndex = newBiomeIndex;
+        mapTileList = new ArrayList<ArrayList<MapTile>>();
         // meanTile = mean;
         // terrainClutter = clutter;
         // generateMapTileList();

@@ -5,6 +5,10 @@
  */
 package mapgenerator;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -61,6 +65,18 @@ public class Macros {
         }
         s.useDelimiter(" ");
         return c;
+    }
+    public static PrintWriter getPrintWriter(File f)
+    {
+        try { 
+            f.createNewFile();
+            return new PrintWriter(f);}
+        catch (IOException ex){
+            return null;
+        }
+    }
+    public static void copyFile(File src, File dest) throws IOException {
+        Files.copy(src.toPath(), dest.toPath());
     }
 }
 
