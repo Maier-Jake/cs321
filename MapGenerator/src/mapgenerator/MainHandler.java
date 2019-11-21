@@ -1,6 +1,7 @@
 package mapgenerator;
 
 import java.awt.*;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.filechooser.*;
 import java.io.*;
@@ -42,6 +43,7 @@ public class MainHandler
         
         activeScenario = loadScenario(infile);
         
+        exportScenario();
             
         
         frame.setLayout(new FlowLayout());
@@ -159,4 +161,22 @@ public class MainHandler
         return new Scenario(newMap, monsterList, lootList);
     }
     
+    public static void exportScenario()
+    {
+        //ask the user for a name for the file
+        // parent component of the dialog
+        JFrame parentFrame = new JFrame();
+
+        JFileChooser fileChooser = new JFileChooser();
+        
+        fileChooser.setDialogTitle("Specify a file to save");    
+
+        int userSelection = fileChooser.showSaveDialog(parentFrame);
+
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            File fileToSave = fileChooser.getSelectedFile();
+            System.out.println("Save as file: " + fileToSave.getAbsolutePath());
+        }
+
+    }
 }
