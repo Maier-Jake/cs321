@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.NoSuchElementException;
 import java.io.File;
+import java.awt.event.*;
 
 /**
  *
@@ -18,23 +19,34 @@ public class MainHandler
 {
     
     private static Scenario activeScenario;
+    private static InitialView initialView;
     
     public static void main(String[] args) throws InterruptedException 
     {
-        InitialView openingView = new InitialView();
-        openingView.displayView();
-        while(openingView.getButtonState() == 0)
-        {
-           Thread.sleep(500);
-           /*int x = openingView.getButtonState();
-           System.out.println(x);*/
-        }
+        initialView = new InitialView();
         
-        if(openingView.getButtonState() == 2)
-        {
-            activeScenario = loadScenario(/*infile*/);
-        }
+        initialView.getNewMapButton().addActionListener(new ActionListener() 
+        {        
+            public void actionPerformed(ActionEvent event) 
+            {
+                initialView.getFrame().dispose();
+                System.out.println("Exiting program");
+            }
+        });
         
+        initialView.getLoadMapButton().addActionListener(new ActionListener() 
+        {        
+            public void actionPerformed(ActionEvent event) 
+            {
+                initialView.getFrame().dispose();
+                activeScenario = loadScenario();
+                if(activeScenario == null)
+                {
+                    return;
+                }
+                System.out.println("Map Loaded");
+            }
+        });
     }
     
     /**
@@ -69,12 +81,7 @@ public class MainHandler
             System.out.println("This should never run!");
             infile = new Scanner(System.in);
         }
-
-        // frame.pack();
-        // frame.setVisible(true);
-        // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        // Scenario newScenario;
         String line, token;
         int startI, endI;
         
