@@ -20,9 +20,11 @@ public class MainHandler
     
     private static Scenario activeScenario;
     private static InitialView initialView;
+    private static MainView mainView;
     
     public static void main(String[] args) throws InterruptedException 
     {
+        mainView = new MainView(new Scenario(new Map(40, 30, 0), new ArrayList<Monster>(), new ArrayList<LootPile>()), false);
         initialView = new InitialView();
         
         initialView.getNewMapButton().addActionListener(new ActionListener() 
@@ -30,6 +32,7 @@ public class MainHandler
             public void actionPerformed(ActionEvent event) 
             {
                 initialView.getFrame().dispose();
+                mainView.setScenario(new Scenario(new Map(30, 40, 0), new ArrayList<Monster>(), new ArrayList<LootPile>()), false);
                 System.out.println("Exiting program");
             }
         });
@@ -45,6 +48,7 @@ public class MainHandler
                     return;
                 }
                 System.out.println("Map Loaded");
+                mainView.setScenario(activeScenario, true);
             }
         });
     }

@@ -10,8 +10,8 @@ import java.util.ArrayList;
 public class Scenario implements Serializable 
 {
     private Map currentMap;
-    private ArrayList<Monster> monsterList;
-    private ArrayList<LootPile> lootPileList;
+    private final ArrayList<Monster> monsterList;
+    private final ArrayList<LootPile> lootPileList;
     
     Scenario(Map newMap, ArrayList<Monster> newMonsterList, ArrayList<LootPile> newLootPileList)
     {

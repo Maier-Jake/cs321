@@ -1,8 +1,6 @@
 package mapgenerator;
 
-import java.awt.FlowLayout;
 import javax.swing.*; 
-import java.awt.event.*;
 
 /**
  *
@@ -16,7 +14,7 @@ public class InitialView
     
     InitialView()
     {
-        frame = new JFrame("Initial VIew");
+        frame = new JFrame("Initial View");
         
         newMapButton = new JButton("New Map");
         loadMapButton = new JButton("Load Map");
@@ -26,24 +24,6 @@ public class InitialView
         
         newMapButton.setBounds(100, 40, 100, 40); 
         loadMapButton.setBounds(100, 100, 100, 40);
-        
-        /*newMapButton.addActionListener(new ActionListener() 
-        {        
-            public void actionPerformed(ActionEvent event) 
-            {          
-                buttonState = 1;
-                frame.dispose();
-            }
-        });
-        
-        loadMapButton.addActionListener(new ActionListener() 
-        {        
-            public void actionPerformed(ActionEvent event) 
-            {          
-                buttonState = 2;
-                frame.dispose();
-            }      
-        });*/
         
         frame.setSize(300, 220); 
         frame.setLayout(null);

@@ -105,11 +105,11 @@ public class Map
     
     public ArrayList<ArrayList<MapTile>> getMapTiles()
     {
-        ArrayList<ArrayList<MapTile>> returnList = new ArrayList<ArrayList<MapTile>>();
+        ArrayList<ArrayList<MapTile>> returnList = new ArrayList<>();
         
         for (int y = 0; y < numRows; y++)
         {
-            returnList.add(new ArrayList<MapTile>());
+            returnList.add(new ArrayList<>());
             
             for (int x = 0; x < numCols; x++)
             {
@@ -178,7 +178,7 @@ public class Map
         
         for (int y = 0; y < numRows; y++)
         {
-            mapTileList.add(new ArrayList<MapTile>());
+            mapTileList.add(new ArrayList<>());
             
             for (int x = 0; x < numCols; x++)
             {
