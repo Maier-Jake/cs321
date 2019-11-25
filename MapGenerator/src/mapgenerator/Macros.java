@@ -51,6 +51,19 @@ public class Macros {
                 return -1;
         }
     }
+    public static String convertIndexToBiome(int index)
+    {
+        switch (index) {
+            case FORESTINDEX:
+                return "Forest";
+            case DUNGEONINDEX:
+                return "Dungeon";
+            case SWAMPINDEX:
+                return "Swamp";
+            default:
+                return "BiomeNotRecognized";
+        }
+    }
     
     public static String readChar(Scanner s)
     {

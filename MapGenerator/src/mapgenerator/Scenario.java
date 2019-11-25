@@ -37,20 +37,20 @@ public class Scenario
     
     public ArrayList<Monster> getMonsterList()
     {
-        ArrayList<Monster> returnList = new ArrayList<>(monsterList.size());
-        for(int i = 0; i < monsterList.size(); i++)
+        ArrayList<Monster> returnList = new ArrayList<>();
+        for(Monster newMonster : monsterList) 
         {
-            returnList.set(i, monsterList.get(i).copyMonster());
+            returnList.add(newMonster.copyMonster());
         }
         return returnList;
     }
     
     public ArrayList<LootPile> getLootPileList()
     {
-        ArrayList<LootPile> returnList = new ArrayList<>(lootPileList.size());
-        for(int i = 0; i < lootPileList.size(); i++)
+        ArrayList<LootPile> returnList = new ArrayList<>();
+        for(LootPile loot : lootPileList)
         {
-            returnList.set(i, lootPileList.get(i).copyLootPile());
+            returnList.add(loot.copyLootPile());
         }
         return returnList;
     }

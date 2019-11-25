@@ -6,39 +6,47 @@ package mapgenerator;
  */
 public class Monster
 {
-    private int monsterIndex;
-    public final Coordinates coords;
+    private int index;
+    private final Coordinates coords;
     private String name;
     
     public Monster(int newXCoord, int newYCoord, int newMonsterIndex, String name)
     {
         coords = new Coordinates (newXCoord, newYCoord);
-        monsterIndex = newMonsterIndex;
+        index = newMonsterIndex;
         this.name = name;
     }
     public Monster(Coordinates c, int monsterIndex, String name)
     {
-        this.monsterIndex = monsterIndex;
+        this.index = monsterIndex;
         coords = c;
         this.name = name;
     }
     public Monster copyMonster()
     {
-        Monster returnMonster = new Monster(new Coordinates(coords.getX(),coords.getY()), monsterIndex, name);
+        Monster returnMonster = new Monster(new Coordinates(coords.getX(),coords.getY()), index, name);
         return returnMonster;
     }
     
     public int getMonsterIndex()
     {
-        return monsterIndex;
+        return index;
     }
     
     public void setMonsterIndex(int newMonsterIndex)
     {
-        monsterIndex = newMonsterIndex;
+        index = newMonsterIndex;
     }
     public String getName()
     {
         return name;
+    }
+    public int getX()
+    {
+        return coords.getX();
+    }
+    public int getY()
+    {
+        return coords.getY();
     }
 }

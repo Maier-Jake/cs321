@@ -35,6 +35,7 @@ public class MainHandler
                 activeScenario = new Scenario(new Map(30, 40, Macros.FORESTINDEX), new ArrayList<Monster>(), new ArrayList<LootPile>());
                 mainView = new MainView(activeScenario, true);
                 System.out.println("Exiting program");
+                //exportScenario();
             }
         });
         
@@ -51,7 +52,7 @@ public class MainHandler
                 System.out.println("Map Loaded");
                 mainView = new MainView(activeScenario, true);
                 //mainView.setScenario(activeScenario, true);
-                exportScenario();
+                //exportScenario();
             }
         });
         
@@ -73,8 +74,11 @@ public class MainHandler
         Scenario newScenario = null;
         
         final JFileChooser fileChooser = new JFileChooser();
+        File workingDirectory = new File(System.getProperty("user.dir"));
+        fileChooser.setCurrentDirectory(workingDirectory);
         FileNameExtensionFilter filter = new FileNameExtensionFilter("ScenarioFiles", "Scenario");
         fileChooser.setFileFilter(filter);
+        
         int returnVal = fileChooser.showOpenDialog(frame);
         if(returnVal == JFileChooser.APPROVE_OPTION) 
         {
@@ -103,7 +107,7 @@ public class MainHandler
         startI = line.indexOf(": ")+2;
         token = line.substring(startI);
         width = Macros.readInt(token);
-        System.out.println("Width is: " + width);
+        //System.out.println("Width is: " + width);
         //read second line and get length of map.
         int length;
         line = Macros.readLine(infile);
@@ -111,7 +115,7 @@ public class MainHandler
         startI = line.indexOf(": ")+2;
         token = line.substring(startI);
         length = Macros.readInt(token);
-        System.out.println("Length is: " + length);
+        //System.out.println("Length is: " + length);
         
         //read third line and get biome of the map
         String biome;
@@ -121,7 +125,7 @@ public class MainHandler
         startI = line.indexOf(": ")+2;
         token = line.substring(startI);
         biome = token;
-        System.out.println("Biome is: " + biome);
+        //System.out.println("Biome is: " + biome);
         biomeIndex = Macros.getBiomeIndex(biome);
         if(biomeIndex == -1) return null;
         
@@ -160,7 +164,7 @@ public class MainHandler
         {
             //get index
             line = Macros.readLine(infile);
-            System.out.println(line);
+            //System.out.println(line);
             int index = Integer.parseInt(line.substring(0,1));
             //get coordinates
             line = line.substring(line.indexOf("("));
@@ -188,7 +192,7 @@ public class MainHandler
                 int numItems = Integer.parseInt(line.substring(0,line.indexOf(",")));
                 line = line.substring(line.indexOf(",")+1);
                 int numGP = Integer.parseInt(line.substring(0,line.indexOf("\"")));
-                LootPile newLoot = new LootPile(coords, numGP, numItems);
+                LootPile newLoot = new LootPile(coords, numGP, numItems, index);
                 lootList.add(newLoot);
             }
         }
@@ -199,28 +203,78 @@ public class MainHandler
     public static void exportScenario()
     {
         String fileName = "";
+        JFrame frame = new JFrame();
+        
+        final JFileChooser fileChooser = new JFileChooser();
+        File workingDirectory = new File(System.getProperty("user.dir"));
+        fileChooser.setCurrentDirectory(workingDirectory);
+        fileChooser.setDialogTitle("Specify a file to save");
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("ScenarioFiles", "Scenario");
+        fileChooser.setFileFilter(filter);
+        
+        if(fileChooser.showSaveDialog(frame) == JFileChooser.APPROVE_OPTION) 
+        {
+            fileName = fileChooser.getSelectedFile().getPath();
+            //System.out.println("filename: " + fileName); 
+        } 
+        else 
+        {
+            System.out.println("Failed to load in file, closed before .scenario file selected!");
+        }
+        
         try{
             BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
-            writer.write("jake is coolll");
-            System.out.println("jake is coool was printed to file");
+            //Width: width
+            //Length: length
+            writer.write("Width: " + activeScenario.getMap().getNumCols() + "\n");
+            writer.write("Length: " + activeScenario.getMap().getNumRows() + "\n");
+            //Biome: biomeName
+            int biomeIndex = activeScenario.getMap().getBiomeIndex();
+            String biomeName = Macros.convertIndexToBiome(biomeIndex);
+            writer.write("Biome: " + biomeName + "\n");
+            //MapPrintout
+            for (int y = 0; y < activeScenario.getMap().getNumRows(); y++)
+            { 
+                for (int x = 0; x < activeScenario.getMap().getNumCols(); x++)
+                {
+                    int number = activeScenario.getMap().getMapTiles().get(y).get(x).getTerrainIndex();
+                    String n = Integer.toString(number);
+                    writer.write(n);
+                }
+                writer.write("\n");
+            }
+            //Entities line:
+            writer.write("Entities:\n");
+            //List of entities
+            for(Monster monster : activeScenario.getMonsterList()) 
+            {
+                //write index
+                writer.write(monster.getMonsterIndex()+ ": ");
+                //write coordinates
+                writer.write("("+monster.getX()+","+monster.getY()+") ");
+                //write "monster"
+                writer.write("Monster: \"" + monster.getName() +"\"");
+                //endline
+                writer.write("\n");
+            }
+            for(LootPile loot : activeScenario.getLootPileList()) 
+            {
+                //write index
+                writer.write(loot.getIndex()+ ": ");
+                //write coordinates
+                writer.write("("+loot.getX()+","+loot.getY()+") ");
+                //write "loot"
+                writer.write("LootPile: \"" + loot.getItemCount() + "," + loot.getGoldPieces() + "\"");
+                //endline
+                writer.write("\n");
+            }
+            
+            
+            writer.close();
+            
         } catch(IOException ex)
         {
-            System.out.println("error opening file");
+            System.err.format("IOException: %s%n", ex);
         }
-        /*
-        // parent component of the dialog
-        JFrame parentFrame = new JFrame();
-
-        JFileChooser fileChooser = new JFileChooser();
-        
-        fileChooser.setDialogTitle("Specify a file to save");    
-
-        int userSelection = fileChooser.showSaveDialog(parentFrame);
-
-        if (userSelection == JFileChooser.APPROVE_OPTION) {
-            File fileToSave = fileChooser.getSelectedFile();
-            System.out.println("Save as file: " + fileToSave.getAbsolutePath());
-        }
-        */
     }
 }
