@@ -56,6 +56,21 @@ public class MainHandler
             }
         });
         
+        mainView.getLootButton().addActionListener(new ActionListener() 
+        {        
+            public void actionPerformed(ActionEvent event) 
+            {
+                lootView.showLootView();
+            }
+        });
+        mainView.getMonsterButton().addActionListener(new ActionListener() 
+        {        
+            public void actionPerformed(ActionEvent event) 
+            {
+                monsterView.showMonsterView();
+            }
+        });
+        
         //exportScenario();
         //mainView = new MainView(new Scenario(new Map(40, 30, 0), new ArrayList<Monster>(), new ArrayList<LootPile>()), false);
         //mainView.setVisible(false);
