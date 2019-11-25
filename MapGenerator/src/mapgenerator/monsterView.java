@@ -63,7 +63,7 @@ public class monsterView {
         nameField.setPreferredSize(new Dimension(200, 25));
     
         monsterLabel = new JLabel("Loot List:");
-        monsterLabel = new JLabel("Experience:");
+        xpLabel = new JLabel("Experience:");
         xLabel = new JLabel("     X:");
         yLabel = new JLabel("     Y:");
         nameLabel = new JLabel("Name:");
