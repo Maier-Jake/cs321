@@ -13,6 +13,7 @@ public class MainView
     JButton lootButton;
     MapIcon map;
     JLabel mapLabel;
+    Boolean isVisible;
     
     
     MainView(Scenario newScenario, boolean mapReady)
@@ -27,6 +28,7 @@ public class MainView
         frame.add(monsterButton);
         frame.add(lootButton);
         frame.add(mapLabel);
+        isVisible = mapReady;
         
         monsterButton.setBounds(20, 20, 100, 20); 
         lootButton.setBounds(140, 20, 100, 20);
@@ -36,7 +38,7 @@ public class MainView
         frame.setLayout(null);
         
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
+        frame.setVisible(isVisible);
     }
     
     public JButton getMonsterButton()

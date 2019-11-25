@@ -87,6 +87,15 @@ public class Map
         numRows = newNumRows;
         biomeIndex = newBiomeIndex;
         mapTileList = new ArrayList<ArrayList<MapTile>>();
+        for (int y = 0; y < numRows; y++)
+        {
+            mapTileList.add(new ArrayList<MapTile>());
+            
+            for (int x = 0; x < numCols; x++)
+            {
+                mapTileList.get(y).add(new MapTile(x,y,0));
+            }
+        }
         // meanTile = mean;
         // terrainClutter = clutter;
         // generateMapTileList();
@@ -105,11 +114,11 @@ public class Map
     
     public ArrayList<ArrayList<MapTile>> getMapTiles()
     {
-        ArrayList<ArrayList<MapTile>> returnList = new ArrayList<>();
+        ArrayList<ArrayList<MapTile>> returnList = new ArrayList<ArrayList<MapTile>>();
         
         for (int y = 0; y < numRows; y++)
         {
-            returnList.add(new ArrayList<>());
+            returnList.add(new ArrayList<MapTile>());
             
             for (int x = 0; x < numCols; x++)
             {

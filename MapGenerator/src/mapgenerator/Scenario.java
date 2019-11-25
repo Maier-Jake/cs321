@@ -7,7 +7,7 @@ import java.util.ArrayList;
  *
  * @author CS 321 Team 1
  */
-public class Scenario implements Serializable 
+public class Scenario
 {
     private Map currentMap;
     private final ArrayList<Monster> monsterList;
