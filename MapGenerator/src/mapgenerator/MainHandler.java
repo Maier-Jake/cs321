@@ -51,9 +51,11 @@ public class MainHandler
                 System.out.println("Map Loaded");
                 mainView = new MainView(activeScenario, true);
                 //mainView.setScenario(activeScenario, true);
+                exportScenario();
             }
         });
         
+        //exportScenario();
         //mainView = new MainView(new Scenario(new Map(40, 30, 0), new ArrayList<Monster>(), new ArrayList<LootPile>()), false);
         //mainView.setVisible(false);
     }
@@ -87,7 +89,7 @@ public class MainHandler
         } 
         else 
         {
-            System.out.println("This should never run!");
+            System.out.println("Failed to load in file, closed before .scenario file selected!");
             infile = new Scanner(System.in);
         }
         
@@ -196,11 +198,15 @@ public class MainHandler
     
     public static void exportScenario()
     {
-        //ask the user for a name for the file
-        File tempFile = new File("c://Users//jaked//Documents//NetBeansProjects//cs321//MapGenerator//tempfile.scenario");
-        PrintWriter fileWriter = Macros.getPrintWriter(tempFile);
-        //Create the file
-        fileWriter.print("jake is cool");
+        String fileName = "";
+        try{
+            BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
+            writer.write("jake is coolll");
+            System.out.println("jake is coool was printed to file");
+        } catch(IOException ex)
+        {
+            System.out.println("error opening file");
+        }
         /*
         // parent component of the dialog
         JFrame parentFrame = new JFrame();

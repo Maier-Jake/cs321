@@ -67,7 +67,7 @@ public class Macros {
     public static PrintWriter getPrintWriter(File f)
     {
         try { 
-            f.createNewFile();
+            //f.createNewFile();
             return new PrintWriter(f);}
         catch (IOException ex){
             return null;
