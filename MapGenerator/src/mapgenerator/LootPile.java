@@ -9,27 +9,24 @@ public class LootPile
     private int goldPieces;
     private int itemCount;
     private final Coordinates coords;
-    private int index;
     
-    public LootPile(int newXCoord, int newYCoord, int newGP, int newItemCount, int index)
+    public LootPile(int newXCoord, int newYCoord, int newGP, int newItemCount)
     {
         coords = new Coordinates(newXCoord, newYCoord);
         goldPieces = newGP;
         itemCount = newItemCount;
-        this.index = index;
     }
-    public LootPile(Coordinates c, int newGP, int newItemCount, int index)
+    public LootPile(Coordinates c, int newGP, int newItemCount)
     {
         coords = c;
         goldPieces = newGP;
         itemCount = newItemCount;
-        this.index = index;
     }
     
     
     public LootPile copyLootPile()
     {
-        LootPile returnLootPile = new LootPile(new Coordinates(coords.getX(),coords.getY()), goldPieces, itemCount, index);
+        LootPile returnLootPile = new LootPile(new Coordinates(coords.getX(),coords.getY()), goldPieces, itemCount);
         return returnLootPile;
     }
     
@@ -51,15 +48,6 @@ public class LootPile
     public void setItemCount(int newItemCount)
     {
         itemCount = newItemCount;
-    }
-    public int getIndex()
-    {
-        return index;
-    }
-    
-    public void setIndex(int newIndex)
-    {
-        index = newIndex;
     }
     public int getX()
     {
