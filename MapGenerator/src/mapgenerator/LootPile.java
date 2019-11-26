@@ -8,7 +8,7 @@ public class LootPile
 {
     private int goldPieces;
     private int itemCount;
-    public final Coordinates coords;
+    private final Coordinates coords;
     
     public LootPile(int newXCoord, int newYCoord, int newGP, int newItemCount)
     {
@@ -22,6 +22,7 @@ public class LootPile
         goldPieces = newGP;
         itemCount = newItemCount;
     }
+    
     
     public LootPile copyLootPile()
     {
@@ -52,5 +53,13 @@ public class LootPile
     public void setItemCount(int newItemCount)
     {
         itemCount = newItemCount;
+    }
+    public int getX()
+    {
+        return coords.getX();
+    }
+    public int getY()
+    {
+        return coords.getY();
     }
 }

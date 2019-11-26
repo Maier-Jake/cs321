@@ -6,22 +6,19 @@ package mapgenerator;
  */
 public class Monster
 {
-    private int monsterIndex;
-    public Coordinates coords;
+    private Coordinates coords;
     private String name;
     private float CR;
     
-    public Monster(int newXCoord, int newYCoord, int newMonsterIndex, String name, float newCR)
+    public Monster(int newXCoord, int newYCoord, String name, float newCR)
     {
         coords = new Coordinates (newXCoord, newYCoord);
-        monsterIndex = newMonsterIndex;
         this.name = name;
         CR = newCR;
     }
     
-    public Monster(Coordinates c, int monsterIndex, String name, float newCR)
+    public Monster(Coordinates c, String name, float newCR)
     {
-        this.monsterIndex = monsterIndex;
         coords = c;
         this.name = name;
         CR = newCR;
@@ -29,7 +26,7 @@ public class Monster
     
     public Monster copyMonster()
     {
-        Monster returnMonster = new Monster(new Coordinates(coords.getX(),coords.getY()), monsterIndex, name, CR);
+        Monster returnMonster = new Monster(new Coordinates(coords.getX(),coords.getY()), name, CR);
         return returnMonster;
     }
     
@@ -41,16 +38,6 @@ public class Monster
     public void setCoords(int x, int y)
     {
         coords = new Coordinates(x, y);
-    }
-    
-    public int getMonsterIndex()
-    {
-        return monsterIndex;
-    }
-    
-    public void setMonsterIndex(int newMonsterIndex)
-    {
-        monsterIndex = newMonsterIndex;
     }
     
     public float getCR()
@@ -66,5 +53,15 @@ public class Monster
     public String getName()
     {
         return name;
+    }
+    
+    public int getX()
+    {
+        return coords.getX();
+    }
+    
+    public int getY()
+    {
+        return coords.getY();
     }
 }
