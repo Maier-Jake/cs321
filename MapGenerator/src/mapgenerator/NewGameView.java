@@ -1,14 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package my.mapgenerator;
+package mapgenerator;
+import java.awt.event.*;
 
-/**
- *
- * @author willm
- */
 public class NewGameView extends javax.swing.JFrame {
 
     /**
@@ -149,16 +141,16 @@ public class NewGameView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void jComboBox1ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add yor handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
-    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
+    private void cancelButtonActionPerformed(ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         System.exit(0);
         
     }//GEN-LAST:event_cancelButtonActionPerformed
 
-    private void GenerateScenarioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GenerateScenarioButtonActionPerformed
+    private void GenerateScenarioButtonActionPerformed(ActionEvent evt) {//GEN-FIRST:event_GenerateScenarioButtonActionPerformed
        String mapLength = mapLengthTextField.getText();
        String mapWidth = mapWidthTextField.getText();
        String monsterChallenge = monsterChallengeTextField.getText();
@@ -166,9 +158,7 @@ public class NewGameView extends javax.swing.JFrame {
        String lootNum = lootTextField.getText();
     }//GEN-LAST:event_GenerateScenarioButtonActionPerformed
     
-    /**
-     * @param args the command line arguments
-     */
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

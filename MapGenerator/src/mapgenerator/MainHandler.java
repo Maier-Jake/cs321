@@ -62,10 +62,27 @@ public class MainHandler
                 System.out.println("Map Loaded");
                 // activeScenario.setMonsterList(generateMonsterList(15));///////////////////////////////
                 // activeScenario.setLootPileList(generateLootPileList(20,5));
-                initializeMainView(activeScenario);
-                //exportScenario();
+                mainView = new MainView(activeScenario, true);
+                //mainView.setScenario(activeScenario, true);
+                exportScenario();
             }
         });
+        /*
+        mainView.getLootButton().addActionListener(new ActionListener() 
+        {        
+            public void actionPerformed(ActionEvent event) 
+            {
+                lootView.showLootView();
+            }
+        });
+        mainView.getMonsterButton().addActionListener(new ActionListener() 
+        {        
+            public void actionPerformed(ActionEvent event) 
+            {
+                monsterView.showMonsterView();
+            }
+        });
+        */
         
         //exportScenario();
         //mainView = new MainView(new Scenario(new Map(40, 30, 0), new ArrayList<Monster>(), new ArrayList<LootPile>()), false);
@@ -232,7 +249,7 @@ public class MainHandler
     }
     
     /**
-     * processScenario is used to read in a .txt file
+     * loadScenario is used to read in a .scenario file
      * line by line to generate a new Scenario file to
      * be used by the program
      */
@@ -321,7 +338,7 @@ public class MainHandler
         //create new Map using this knowledge.
         Map newMap = new Map(width, length, biomeIndex);
         newMap.setMap(aMap);
-        newMap.printMap();
+        //newMap.printMap();
 
         //skip Entities: line
         infile.nextLine();
@@ -332,10 +349,7 @@ public class MainHandler
         
         while(infile.hasNextLine())
         {
-            //get index
             line = Macros.readLine(infile);
-            //System.out.println(line);
-            int index = Integer.parseInt(line.substring(0,1));
             //get coordinates
             line = line.substring(line.indexOf("("));
             startI = line.indexOf("(")+1;
@@ -350,10 +364,17 @@ public class MainHandler
             line = line.substring(endI);
             if (line.contains("Monster:"))
             {
-                line = line.substring(line.indexOf("\"")+1);
+                line = line.substring(line.indexOf("\""));
+                System.out.println(line);
+                startI = line.indexOf("\"")+1;
+                endI = line.indexOf(",");
+                String name = line.substring(startI,endI);
+                line = line.substring(endI);
+                startI = line.indexOf(",")+1;
+                endI = line.indexOf("\"");
+                float challengeRating = Float.parseFloat(line.substring(startI,endI));
                 
-                String name = line.substring(0,line.indexOf("\""));
-                Monster newMonster = new Monster(coords, name, 0);
+                Monster newMonster = new Monster(coords, name, challengeRating);
                 monsterList.add(newMonster);
             }
             else if(line.contains("LootPile:"))
@@ -418,8 +439,6 @@ public class MainHandler
             //List of entities
             for(Monster monster : activeScenario.getMonsterList()) 
             {
-                //write index
-                //writer.write(monster.getMonsterIndex()+ ": ");
                 //write coordinates
                 writer.write("("+monster.getX()+","+monster.getY()+") ");
                 //write "monster"
@@ -429,8 +448,6 @@ public class MainHandler
             }
             for(LootPile loot : activeScenario.getLootPileList()) 
             {
-                //write index
-                // writer.write(loot.getIndex()+ ": ");
                 //write coordinates
                 writer.write("("+loot.getX()+","+loot.getY()+") ");
                 //write "loot"
