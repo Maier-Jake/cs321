@@ -52,10 +52,10 @@ public class MainHandler
                 System.out.println("Map Loaded");
                 mainView = new MainView(activeScenario, true);
                 //mainView.setScenario(activeScenario, true);
-                //exportScenario();
+                exportScenario();
             }
         });
-        
+        /*
         mainView.getLootButton().addActionListener(new ActionListener() 
         {        
             public void actionPerformed(ActionEvent event) 
@@ -70,6 +70,7 @@ public class MainHandler
                 monsterView.showMonsterView();
             }
         });
+        */
         
         //exportScenario();
         //mainView = new MainView(new Scenario(new Map(40, 30, 0), new ArrayList<Monster>(), new ArrayList<LootPile>()), false);
@@ -77,7 +78,7 @@ public class MainHandler
     }
     
     /**
-     * processScenario is used to read in a .txt file
+     * loadScenario is used to read in a .scenario file
      * line by line to generate a new Scenario file to
      * be used by the program
      */
@@ -177,10 +178,7 @@ public class MainHandler
         
         while(infile.hasNextLine())
         {
-            //get index
             line = Macros.readLine(infile);
-            //System.out.println(line);
-            int index = Integer.parseInt(line.substring(0,1));
             //get coordinates
             line = line.substring(line.indexOf("("));
             startI = line.indexOf("(")+1;
@@ -198,7 +196,7 @@ public class MainHandler
                 line = line.substring(line.indexOf("\"")+1);
                 
                 String name = line.substring(0,line.indexOf("\""));
-                Monster newMonster = new Monster(coords, index, name);
+                Monster newMonster = new Monster(coords, name);
                 monsterList.add(newMonster);
             }
             else if(line.contains("LootPile:"))
@@ -207,7 +205,7 @@ public class MainHandler
                 int numItems = Integer.parseInt(line.substring(0,line.indexOf(",")));
                 line = line.substring(line.indexOf(",")+1);
                 int numGP = Integer.parseInt(line.substring(0,line.indexOf("\"")));
-                LootPile newLoot = new LootPile(coords, numGP, numItems, index);
+                LootPile newLoot = new LootPile(coords, numGP, numItems);
                 lootList.add(newLoot);
             }
         }
@@ -263,8 +261,6 @@ public class MainHandler
             //List of entities
             for(Monster monster : activeScenario.getMonsterList()) 
             {
-                //write index
-                writer.write(monster.getMonsterIndex()+ ": ");
                 //write coordinates
                 writer.write("("+monster.getX()+","+monster.getY()+") ");
                 //write "monster"
@@ -274,8 +270,6 @@ public class MainHandler
             }
             for(LootPile loot : activeScenario.getLootPileList()) 
             {
-                //write index
-                writer.write(loot.getIndex()+ ": ");
                 //write coordinates
                 writer.write("("+loot.getX()+","+loot.getY()+") ");
                 //write "loot"
