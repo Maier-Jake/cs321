@@ -127,6 +127,5 @@ public class monsterView {
     public void updateList()
     {
         ArrayList<LootPile> loots = new ArrayList<>();
-        
     }
 }

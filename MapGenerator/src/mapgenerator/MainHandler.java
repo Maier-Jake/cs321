@@ -72,7 +72,7 @@ public class MainHandler
                 {
                     return;
                 }
-                System.out.println("Map Loaded");
+                System.out.println("Scenario Loaded In From File");
                 // activeScenario.setMonsterList(generateMonsterList(15));///////////////////////////////
                 // activeScenario.setLootPileList(generateLootPileList(20,5));
                 mainView = new MainView(activeScenario, true);
@@ -249,7 +249,7 @@ public class MainHandler
         int returnVal = fileChooser.showOpenDialog(frame);
         if(returnVal == JFileChooser.APPROVE_OPTION) 
         {
-            System.out.println("You chose to open this file: " + fileChooser.getSelectedFile().getName());
+            //System.out.println("You chose to open this file: " + fileChooser.getSelectedFile().getName());
             try {
                 infile = new Scanner(fileChooser.getSelectedFile());
             } catch (FileNotFoundException ex) {
@@ -274,7 +274,6 @@ public class MainHandler
         startI = line.indexOf(": ")+2;
         token = line.substring(startI);
         width = Macros.readInt(token);
-        //System.out.println("Width is: " + width);
         //read second line and get length of map.
         int length;
         line = Macros.readLine(infile);
@@ -282,7 +281,6 @@ public class MainHandler
         startI = line.indexOf(": ")+2;
         token = line.substring(startI);
         length = Macros.readInt(token);
-        //System.out.println("Length is: " + length);
         
         //read third line and get biome of the map
         String biome;
@@ -292,7 +290,6 @@ public class MainHandler
         startI = line.indexOf(": ")+2;
         token = line.substring(startI);
         biome = token;
-        //System.out.println("Biome is: " + biome);
         biomeIndex = Macros.getBiomeIndex(biome);
         if(biomeIndex == -1) return null;
         
@@ -345,7 +342,6 @@ public class MainHandler
             if (line.contains("Monster:"))
             {
                 line = line.substring(line.indexOf("\""));
-                System.out.println(line);
                 startI = line.indexOf("\"")+1;
                 endI = line.indexOf(",");
                 String name = line.substring(startI,endI);
@@ -386,7 +382,6 @@ public class MainHandler
         if(fileChooser.showSaveDialog(frame) == JFileChooser.APPROVE_OPTION) 
         {
             fileName = fileChooser.getSelectedFile().getPath();
-            //System.out.println("filename: " + fileName); 
         } 
         else 
         {
@@ -422,7 +417,7 @@ public class MainHandler
                 //write coordinates
                 writer.write("("+monster.getX()+","+monster.getY()+") ");
                 //write "monster"
-                writer.write("Monster: \"" + monster.getName() +"\"");
+                writer.write("Monster: \"" + monster.getName() +","+ monster.getCR() + "\"");
                 //endline
                 writer.write("\n");
             }

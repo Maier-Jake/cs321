@@ -12,6 +12,6 @@ Biome: Forest
 0111111110
 0000000000
 Entities: # list of things on map:
-(5,6) Monster: "Orc,0"
-(4,9) Monster: "Pony,0"
+(5,6) Monster: "Orc,0.25"
+(4,9) Monster: "Pony,0.88"
 (3,7) LootPile: "3,5" # 3 Items, 5 GP
