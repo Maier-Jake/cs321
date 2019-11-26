@@ -39,26 +39,13 @@ public class MainHandler
             public void actionPerformed(ActionEvent event) 
             {
                 initialView.getFrame().dispose();
-                activeScenario = new Scenario(new Map(30, 40, Macros.FORESTINDEX), 
-                        new ArrayList<Monster>(), new ArrayList<LootPile>());
-                mainView = new MainView(activeScenario, true);
-                System.out.println("Exiting program");
-                //exportScenario();
-        
-                mainView.getLootButton().addActionListener(new ActionListener() 
-                {        
-                    public void actionPerformed(ActionEvent event) 
-                    {
-                        lootView.showLootView();
-                    }
-                });
-                mainView.getMonsterButton().addActionListener(new ActionListener() 
-                {        
-                    public void actionPerformed(ActionEvent event) 
-                    {
-                        monsterView.showMonsterView();
-                    }
-                });
+                Map newMap = new Map(30, 20, Macros.FORESTINDEX);
+                ArrayList<Monster> newMonsters = generateMonsterList(newMap, null, 15);
+                ArrayList<LootPile> newLoots = generateLootPileList(newMap, newMonsters, 20, 5);
+                activeScenario = new Scenario(newMap, newMonsters, newLoots);
+                // activeScenario.setMonsterList(generateMonsterList(15));///////////////////////////////
+                // activeScenario.setLootPileList(generateLootPileList(20,5));
+                initializeMainView(activeScenario);
             }
         });
         
@@ -75,24 +62,8 @@ public class MainHandler
                 System.out.println("Map Loaded");
                 // activeScenario.setMonsterList(generateMonsterList(15));///////////////////////////////
                 // activeScenario.setLootPileList(generateLootPileList(20,5));
-                mainView = new MainView(activeScenario, true);
-                //mainView.setScenario(activeScenario, true);
+                initializeMainView(activeScenario);
                 //exportScenario();
-        
-                mainView.getLootButton().addActionListener(new ActionListener() 
-                {        
-                    public void actionPerformed(ActionEvent event) 
-                    {
-                        lootView.showLootView();
-                    }
-                });
-                mainView.getMonsterButton().addActionListener(new ActionListener() 
-                {        
-                    public void actionPerformed(ActionEvent event) 
-                    {
-                        monsterView.showMonsterView();
-                    }
-                });
             }
         });
         
@@ -101,25 +72,51 @@ public class MainHandler
         //mainView.setVisible(false);
     }
     
-    public static ArrayList<Monster> generateMonsterList(int CR)
+    private static void initializeMainView(Scenario scenario)
+    {
+        mainView = new MainView(scenario, true);
+        mainView.getLootButton().addActionListener(new ActionListener() 
+        {        
+            public void actionPerformed(ActionEvent event) 
+            {
+                lootView.showLootView();
+            }
+        });
+        mainView.getMonsterButton().addActionListener(new ActionListener() 
+        {        
+            public void actionPerformed(ActionEvent event) 
+            {
+                monsterView.showMonsterView();
+            }
+        });
+    }
+    
+    public static ArrayList<Monster> generateMonsterList(Map newMap, ArrayList<LootPile> lootList, int CR)
     {
         ArrayList<Monster> monsterList = new ArrayList<>();
         ArrayList<Monster> correctCRList = new ArrayList<>();
         ArrayList<MapTile> availableTiles = new ArrayList<>();
         
-        for(int y = 0; y < Scenario.getMap().getMapTiles().size(); ++y)
+        for(int y = 0; y < newMap.getMapTiles().size(); ++y)
         {
-            for(int x = 0; x < Scenario.getMap().getMapTiles().get(y).size(); ++x)
+            for(int x = 0; x < newMap.getMapTiles().get(y).size(); ++x)
             {
-                if(Scenario.getMap().getMapTiles().get(y).get(x).getTerrainIndex() == 1)
+                if(newMap.getMapTiles().get(y).get(x).getTerrainIndex() == 1)
                 {
-                    for(int i = 0; i < Scenario.getLootPileList().size(); ++i)
+                    if(lootList != null && lootList.size() != 0)
                     {
-                        if(!(Scenario.getLootPileList().get(i).getCoords().getX() == x 
-                                && Scenario.getLootPileList().get(i).getCoords().getX() == y) )
+                        for(int i = 0; i < lootList.size(); ++i)
                         {
-                            availableTiles.add(Scenario.getMap().getMapTiles().get(y).get(x).copyMapTile());
+                            if(!(lootList.get(i).getCoords().getX() == x 
+                                    && lootList.get(i).getCoords().getX() == y) )
+                            {
+                                availableTiles.add(newMap.getMapTiles().get(y).get(x).copyMapTile());
+                            }
                         }
+                    }
+                    else
+                    {
+                        availableTiles.add(newMap.getMapTiles().get(y).get(x).copyMapTile());
                     }
                 }
             }
@@ -158,24 +155,31 @@ public class MainHandler
         return monsterList;
     }
     
-    public static ArrayList<LootPile> generateLootPileList(int GP, int items)
+    public static ArrayList<LootPile> generateLootPileList(Map newMap, ArrayList<Monster> monsterList, int GP, int items)
     {
         ArrayList<LootPile> lootPileList = new ArrayList<>();
         ArrayList<MapTile> availableTiles = new ArrayList<>();
         
-        for(int y = 0; y < Scenario.getMap().getMapTiles().size(); ++y)
+        for(int y = 0; y < newMap.getMapTiles().size(); ++y)
         {
-            for(int x = 0; x < Scenario.getMap().getMapTiles().get(y).size(); ++x)
+            for(int x = 0; x < newMap.getMapTiles().get(y).size(); ++x)
             {
-                if(Scenario.getMap().getMapTiles().get(y).get(x).getTerrainIndex() == 1)
+                if(newMap.getMapTiles().get(y).get(x).getTerrainIndex() == 1)
                 {
-                    for(int i = 0; i < Scenario.getMonsterList().size(); ++i)
+                    if(monsterList != null && monsterList.size() != 0)
                     {
-                        if(!(Scenario.getMonsterList().get(i).getCoords().getX() == x 
-                                && Scenario.getMonsterList().get(i).getCoords().getX() == y) )
+                        for(int i = 0; i < monsterList.size(); ++i)
                         {
-                            availableTiles.add(Scenario.getMap().getMapTiles().get(y).get(x).copyMapTile());
+                            if(!(monsterList.get(i).getCoords().getX() == x 
+                                    && monsterList.get(i).getCoords().getX() == y) )
+                            {
+                                availableTiles.add(newMap.getMapTiles().get(y).get(x).copyMapTile());
+                            }
                         }
+                    }
+                    else
+                    {
+                        availableTiles.add(newMap.getMapTiles().get(y).get(x).copyMapTile());
                     }
                 }
             }
