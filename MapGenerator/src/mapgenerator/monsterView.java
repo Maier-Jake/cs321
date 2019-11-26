@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 
 public class monsterView {
-    JFrame frame = new JFrame("Edit Loot"); // the master frame
+    static JFrame frame = new JFrame("Edit Loot"); // the master frame
     
     JButton addMonster; // button to add loot
     JButton removeMonster; // button to remove loot
@@ -122,7 +122,7 @@ public class monsterView {
         frame.setVisible(false);
     }
     
-    public void showMonsterView() { frame.setVisible(true);}
+    public static void showMonsterView() { frame.setVisible(true);}
     public void hideMonsterView() { frame.setVisible(false);}
     public void updateList()
     {

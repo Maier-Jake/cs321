@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 // the view that lets user input loot data
 public class lootView {
-    JFrame frame = new JFrame("Edit Loot"); // the master frame
+    static JFrame frame = new JFrame("Edit Loot"); // the master frame
     
     JButton addLoot; // button to add loot
     JButton removeLoot; // button to remove loot
@@ -123,7 +123,7 @@ public class lootView {
         frame.setVisible(false);
     }
     
-    public void showLootView() { frame.setVisible(true);}
+    public static void showLootView() { frame.setVisible(true);}
     public void hideLootView() { frame.setVisible(false);}
     public void updateList()
     {

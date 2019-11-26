@@ -1,6 +1,11 @@
 package mapgenerator;
 
-import javax.swing.*; 
+import java.awt.Color;
+import static java.lang.Integer.max;
+import javax.swing.*;
+ 
+import javax.swing.BorderFactory;
+import javax.swing.border.Border;
 
 /**
  *
@@ -14,6 +19,8 @@ public class MainView
     MapIcon map;
     JLabel mapLabel;
     Boolean isVisible;
+    JLabel indexList;
+    int numberOfLines = 0;
     
     
     MainView(Scenario newScenario, boolean mapReady)
@@ -25,16 +32,53 @@ public class MainView
         map = new MapIcon(newScenario.getMap(), mapReady);
         mapLabel = new JLabel(map);
         
+        numberOfLines = 4 + newScenario.getMonsterList().size() + newScenario.getLootPileList().size();
+        String labelText = "<html> Monsters:<br>";
+        
+        if(newScenario.getMonsterList().size() != 0)
+        {
+            for(int i = 0; i < newScenario.getMonsterList().size(); ++i)
+            {
+                labelText += " " + String.valueOf(i + 1) + ". " + newScenario.getMonsterList().get(i).getName() 
+                        + " (" + (newScenario.getMonsterList().get(i).getCoords().getX() + 1)
+                        + ", " + (newScenario.getMonsterList().get(i).getCoords().getY() + 1)
+                        + ") <br>";
+            }
+        }
+        
+        labelText += "<br> Loot Piles:<br>";
+        
+        if(newScenario.getLootPileList().size() != 0)
+        {
+            for(int i = 0; i < newScenario.getLootPileList().size(); ++i)
+            {
+                labelText += " " + String.valueOf(i + 1 +newScenario.getMonsterList().size() ) + ". GP: " 
+                        + newScenario.getLootPileList().get(i).getGoldPieces() 
+                        + ", Items: " + newScenario.getLootPileList().get(i).getItemCount()
+                        + "; (" + (newScenario.getLootPileList().get(i).getCoords().getX() + 1)
+                        + ", " + (newScenario.getLootPileList().get(i).getCoords().getY() + 1)
+                        + ") <br>";
+            }
+        }
+        
+        indexList = new JLabel(labelText);
+        
+        Border border = BorderFactory.createLineBorder(Color.BLACK, 5);
+        indexList.setBorder(border);
+        indexList.setVerticalAlignment(JLabel.TOP);
+        
         frame.add(monsterButton);
         frame.add(lootButton);
         frame.add(mapLabel);
+        frame.add(indexList);
         isVisible = mapReady;
         
         monsterButton.setBounds(20, 20, 100, 20); 
         lootButton.setBounds(140, 20, 100, 20);
         mapLabel.setBounds(20, 80, (newScenario.getMap().getNumCols() * 15) + 10, (newScenario.getMap().getNumRows() * 15) + 9);
+        indexList.setBounds((newScenario.getMap().getNumCols() * 15) + 50, 80, 200, numberOfLines * 16);
         
-        frame.setSize((newScenario.getMap().getNumCols() * 15) + 370, (newScenario.getMap().getNumRows() * 15) + 149); 
+        frame.setSize((newScenario.getMap().getNumCols() * 15) + 290, max((newScenario.getMap().getNumRows() * 15) + 149, (numberOfLines * 16) + 149)); 
         frame.setLayout(null);
         
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -63,7 +107,7 @@ public class MainView
         frame.add(mapLabel);
         mapLabel.setBounds(20, 80, (newScenario.getMap().getNumCols() * 15) + 10, (newScenario.getMap().getNumRows() * 15) + 9);
         
-        frame.setSize((newScenario.getMap().getNumCols() * 15) + 370, (newScenario.getMap().getNumRows() * 15) + 149); 
+        frame.setSize((newScenario.getMap().getNumCols() * 15) + 290, max((newScenario.getMap().getNumRows() * 15) + 149, (numberOfLines * 16) + 149)); 
     }
     
     public JFrame getFrame()

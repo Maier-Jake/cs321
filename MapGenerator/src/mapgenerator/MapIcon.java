@@ -50,19 +50,57 @@ public class MapIcon implements Icon
                 for(int j = 0; j < map.getNumCols(); ++j)
                 {
                     Rectangle2D.Double currentSquare = new Rectangle2D.Double((x + 7 + (j * 15)), (y + 6 + (i * 15)), 12, 12);
-                    switch(map.getMapTiles().get(i).get(j).getTerrainIndex())
-                    {
+                    
+                    switch (map.getBiomeIndex()) {
                         case 0:
-                            g2.setColor(Color.RED);
-                            g2.fill(currentSquare);
-                            break;
+                            switch(map.getMapTiles().get(i).get(j).getTerrainIndex())
+                            {
+                                case 0:
+                                    g2.setColor(new Color(109, 46, 4));
+                                    g2.fill(currentSquare);
+                                    break;
+                                case 1:
+                                    g2.setColor(new Color(47, 199, 12));
+                                    g2.fill(currentSquare);
+                                    break;
+                                case 2:
+                                    g2.setColor(new Color(9, 96, 3));
+                                    g2.fill(currentSquare);
+                                    break;
+                            }   break;
                         case 1:
-                            g2.setColor(Color.BLUE);
-                            g2.fill(currentSquare);
-                            break;
+                            switch(map.getMapTiles().get(i).get(j).getTerrainIndex())
+                            {
+                                case 0:
+                                    g2.setColor(new Color(78, 78, 78));
+                                    g2.fill(currentSquare);
+                                    break;
+                                case 1:
+                                    g2.setColor(new Color(175, 175, 175));
+                                    g2.fill(currentSquare);
+                                    break;
+                                case 2:
+                                    g2.setColor(new Color(126, 126, 126));
+                                    g2.fill(currentSquare);
+                                    break;
+                            }   break;
                         case 2:
-                            g2.setColor(Color.GREEN);
-                            g2.fill(currentSquare);
+                            switch(map.getMapTiles().get(i).get(j).getTerrainIndex())
+                            {
+                                case 0:
+                                    g2.setColor(new Color(3, 22, 179));
+                                    g2.fill(currentSquare);
+                                    break;
+                                case 1:
+                                    g2.setColor(new Color(3, 179, 98));
+                                    g2.fill(currentSquare);
+                                    break;
+                                case 2:
+                                    g2.setColor(new Color(3, 179, 179));
+                                    g2.fill(currentSquare);
+                                    break;
+                            }   break;
+                        default:
                             break;
                     }
                 }

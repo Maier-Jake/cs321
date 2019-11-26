@@ -30,6 +30,11 @@ public class LootPile
         return returnLootPile;
     }
     
+    public Coordinates getCoords()
+    {
+        return coords;
+    }
+    
     public int getGoldPieces()
     {
         return goldPieces;

@@ -20,6 +20,11 @@ public class MapTile
         terrainIndex = terrainType;
     }
     
+    public Coordinates getCoords()
+    {
+        return coords;
+    }
+    
     public MapTile copyMapTile()
     {
         MapTile returnTile = new MapTile(new Coordinates(coords.getX(),coords.getY()), terrainIndex);
