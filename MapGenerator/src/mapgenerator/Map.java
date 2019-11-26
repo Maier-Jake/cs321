@@ -93,7 +93,7 @@ public class Map
             
             for (int x = 0; x < numCols; x++)
             {
-                mapTileList.get(y).add(new MapTile(x,y,0));
+                mapTileList.get(y).add(new MapTile(x,y,1));
             }
         }
         // meanTile = mean;
