@@ -9,15 +9,15 @@ import java.util.ArrayList;
  */
 public class Scenario
 {
-    private Map currentMap;
-    private final ArrayList<Monster> monsterList;
-    private final ArrayList<LootPile> lootPileList;
+    private static Map currentMap;
+    private static ArrayList<Monster> monsterList;
+    private static ArrayList<LootPile> lootPileList;
     
     Scenario(Map newMap, ArrayList<Monster> newMonsterList, ArrayList<LootPile> newLootPileList)
     {
-        currentMap = newMap;            // TODO change to deep copy
-        monsterList = newMonsterList;   // TODO change to deep copy
-        lootPileList = newLootPileList; // TODO change to deep copy
+        currentMap = newMap;
+        monsterList = newMonsterList;
+        lootPileList = newLootPileList;
     }
     
     public void addMonster(Monster newMonster)
@@ -30,29 +30,29 @@ public class Scenario
         lootPileList.add(newLootPile.copyLootPile());
     }
     
-    public Map getMap()
+    public static Map getMap()
     {
         return currentMap;
     }
     
-    public ArrayList<Monster> getMonsterList()
+    public static ArrayList<Monster> getMonsterList()
     {
-        ArrayList<Monster> returnList = new ArrayList<>(monsterList.size());
+        /*ArrayList<Monster> returnList = new ArrayList<>(monsterList.size());
         for(int i = 0; i < monsterList.size(); i++)
         {
             returnList.set(i, monsterList.get(i).copyMonster());
-        }
-        return returnList;
+        }*/
+        return monsterList;
     }
     
-    public ArrayList<LootPile> getLootPileList()
+    public static ArrayList<LootPile> getLootPileList()
     {
-        ArrayList<LootPile> returnList = new ArrayList<>(lootPileList.size());
+        /*ArrayList<LootPile> returnList = new ArrayList<>(lootPileList.size());
         for(int i = 0; i < lootPileList.size(); i++)
         {
             returnList.set(i, lootPileList.get(i).copyLootPile());
-        }
-        return returnList;
+        }*/
+        return lootPileList;
     }
     
     public void setMap(Map newMap)
