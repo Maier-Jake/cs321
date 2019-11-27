@@ -15,33 +15,35 @@ public class Map
     private int biomeIndex;
     java.util.Random rand = new java.util.Random(); // random number generator base function
     
-    private double meanTile = 0.0;       // the average tile type 
+    private double meanTile = 1.4;       // the average tile type 
     private double terrainClutter = 0.3; // the amount of clutter the terrain has
     
     private void generateMapTileList()
     {
         mapTileList = new ArrayList<>(numCols * numRows);
         int j = 0;
-        for(int i = 0; i < numCols * numRows; i++)
-        {
-            int x = i % numRows;
-            int y = i / numRows;
-            int terrainIndex = 0;
-            
-            // use gaussian noise generator for open biomes
-            double noise = rand.nextGaussian() * Math.sqrt(terrainClutter) + meanTile;
-            noise = Math.abs(noise);
-            if (noise < 0.5) { terrainIndex = 0; }
-            if (noise > 0.5 && noise < 1.0) { terrainIndex = 1; }
-            if (noise > 1.0 && noise < 1.5) {terrainIndex = 2; }
-            System.out.print(terrainIndex);
-            j = j + 1;
-            if (j >= numCols) { 
-                System.out.print('\n');
-                j = 0; 
+        if (biomeIndex != 1) {
+            for(int i = 0; i < numCols * numRows; i++)
+            {
+                int x = i % numRows;
+                int y = i / numRows;
+                int terrainIndex = 0;
+
+                // use gaussian noise generator for open biomes
+                double noise = rand.nextGaussian() * Math.sqrt(terrainClutter) + meanTile;
+                noise = Math.abs(noise);
+                if (noise < 1.0) { terrainIndex = 0; }
+                if (noise > 1.0 && noise < 2.0) { terrainIndex = 1; }
+                if (noise > 2.0 && noise < 3.0) {terrainIndex = 2; }
+                System.out.print(terrainIndex);
+                j = j + 1;
+                if (j >= numCols) { 
+                    System.out.print('\n');
+                    j = 0; 
+                }
+                //MapTile newMapTile = new MapTile(x, y, terrainIndex);
+                mapTileList.get(x).get(y).setTerrainIndex(terrainIndex);
             }
-            MapTile newMapTile = new MapTile(x, y, terrainIndex);
-            // mapTileList.add(newMapTile);
         }
         if (biomeIndex == 2) 
         {
@@ -96,9 +98,7 @@ public class Map
                 mapTileList.get(y).add(new MapTile(x,y,1));
             }
         }
-        // meanTile = mean;
-        // terrainClutter = clutter;
-        // generateMapTileList();
+        generateMapTileList();
     }
     
     public void generateNewMap(int newNumCols, int newNumRows, int newBiomeIndex, double mean, double clutter)
