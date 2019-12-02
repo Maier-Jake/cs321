@@ -22,6 +22,7 @@ public class MainHandler
     private static Scenario activeScenario;
     private static InitialView initialView;
     private static MainView mainView;
+    private static NewMapView newMapView;
     private static ArrayList<Monster> availableMonsters;
     
     public static void main(String[] args) throws InterruptedException 
@@ -40,13 +41,22 @@ public class MainHandler
             public void actionPerformed(ActionEvent event) 
             {
                 initialView.getFrame().dispose();
-                Map newMap = new Map(30, 20, Macros.FORESTINDEX);
-                ArrayList<Monster> newMonsters = generateMonsterList(newMap, null, 15);
-                ArrayList<LootPile> newLoots = generateLootPileList(newMap, newMonsters, 20, 5);
-                activeScenario = new Scenario(newMap, newMonsters, newLoots);
-                // activeScenario.setMonsterList(generateMonsterList(15));///////////////////////////////
-                // activeScenario.setLootPileList(generateLootPileList(20,5));
-                mainView = new MainView(activeScenario, true);
+                newMapView = new NewMapView();
+        
+                newMapView.getGenerateButton().addActionListener(new ActionListener() 
+                {        
+                    public void actionPerformed(ActionEvent event) 
+                    {
+                        Map newMap = new Map(newMapView.getMapWidth(), newMapView.getMapHeight(), newMapView.getBiome());
+                        ArrayList<Monster> newMonsters = generateMonsterList(newMap, null, newMapView.getCR());
+                        ArrayList<LootPile> newLoots = generateLootPileList(newMap, newMonsters, newMapView.getGP(), newMapView.getItems());
+                        activeScenario = new Scenario(newMap, newMonsters, newLoots);
+                        // activeScenario.setMonsterList(generateMonsterList(15));///////////////////////////////
+                        // activeScenario.setLootPileList(generateLootPileList(20,5));
+                        newMapView.getFrame().dispose();
+                        mainView = new MainView(activeScenario, true);
+                    }
+                });
             }
         });
         
@@ -62,7 +72,6 @@ public class MainHandler
                 }
                 System.out.println("Scenario Loaded In From File");
                 mainView = new MainView(activeScenario, true);
-
             }
         });
     }
