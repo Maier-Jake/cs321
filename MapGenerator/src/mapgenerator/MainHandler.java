@@ -18,7 +18,6 @@ import static java.lang.Math.floor;
  */
 public class MainHandler 
 {
-    
     private static Scenario activeScenario;
     private static InitialView initialView;
     private static MainView mainView;
@@ -54,7 +53,8 @@ public class MainHandler
                         // activeScenario.setMonsterList(generateMonsterList(15));///////////////////////////////
                         // activeScenario.setLootPileList(generateLootPileList(20,5));
                         newMapView.getFrame().dispose();
-                        mainView = new MainView(activeScenario, true);
+                        // mainView = new MainView(activeScenario, true);
+                        initializeMainView(activeScenario);
                     }
                 });
             }
@@ -71,34 +71,72 @@ public class MainHandler
                     return;
                 }
                 System.out.println("Scenario Loaded In From File");
-                mainView = new MainView(activeScenario, true);
+                initializeMainView(activeScenario);
+                // mainView = new MainView(activeScenario, true);
             }
         });
     }
-    /*
+    
     private static void initializeMainView(Scenario scenario)
     {
-        
+        mainView = new MainView(scenario, true);
         mainView.getLootButton().addActionListener(new ActionListener() 
         {        
             public void actionPerformed(ActionEvent event) 
             {
-                lootView.showLootView();
+                LootEditView lootEdit = new LootEditView(scenario.getLootPileList());
+                lootEdit.getGenerateButton().addActionListener(new ActionListener() 
+                {        
+                    public void actionPerformed(ActionEvent event) 
+                    {
+                        ArrayList<LootPile> newLoots = generateLootPileList(scenario.getMap(), 
+                                scenario.getMonsterList(), lootEdit.getGP(), lootEdit.getItems());
+                        activeScenario.setLootPileList(newLoots);
+                        lootEdit.getFrame().dispose();
+                        mainView.getFrame().dispose();
+                        initializeMainView(activeScenario);
+                    }
+                });
+                lootEdit.getCancelButton().addActionListener(new ActionListener() 
+                {        
+                    public void actionPerformed(ActionEvent event) 
+                    {
+                        lootEdit.getFrame().dispose();
+                    }
+                });
             }
         });
         mainView.getMonsterButton().addActionListener(new ActionListener() 
         {        
             public void actionPerformed(ActionEvent event) 
             {
-                monsterView.showMonsterView();
+                MonsterEditView monsterEdit = new MonsterEditView(scenario.getMonsterList());
+                monsterEdit.getGenerateButton().addActionListener(new ActionListener() 
+                {        
+                    public void actionPerformed(ActionEvent event) 
+                    {
+                        ArrayList<Monster> newMonsters = generateMonsterList(scenario.getMap(), 
+                                                                        scenario.getLootPileList(), monsterEdit.getCR());
+                        activeScenario.setMonsterList(newMonsters);
+                        monsterEdit.getFrame().dispose();
+                        mainView.getFrame().dispose();
+                        initializeMainView(activeScenario);
+                    }
+                });
+                monsterEdit.getCancelButton().addActionListener(new ActionListener() 
+                {        
+                    public void actionPerformed(ActionEvent event) 
+                    {
+                        monsterEdit.getFrame().dispose();
+                    }
+                });
             }
         });
         mainView.getSaveButton().addActionListener((ActionEvent event) -> {
             exportScenario();
         });
-        
     }
-    */
+    
     public static ArrayList<Monster> generateMonsterList(Map newMap, ArrayList<LootPile> lootList, int CR)
     {
         ArrayList<Monster> monsterList = new ArrayList<>();

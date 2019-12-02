@@ -77,10 +77,10 @@ public class MainView
         frame.add(indexList);
         isVisible = mapReady;
         
-        monsterButton.setBounds(20, 20, 100, 20); 
-        lootButton.setBounds(140, 20, 100, 20);
-        saveButton.setBounds(260, 20, 100, 20);
-        saveButton.addActionListener((ActionEvent event) -> {
+        monsterButton.setBounds(20, 20, 100, 40); 
+        lootButton.setBounds(140, 20, 100, 40);
+        saveButton.setBounds(260, 20, 100, 40);
+        /*saveButton.addActionListener((ActionEvent event) -> {
             MainHandler.exportScenario();
         });
         lootButton.addActionListener((ActionEvent event) -> {     
@@ -88,7 +88,7 @@ public class MainView
         });
         monsterButton.addActionListener((ActionEvent event) -> {   
             monsterView.showMonsterView();
-        });
+        });*/
         
         mapLabel.setBounds(20, 80, (newScenario.getMap().getNumCols() * 15) + 10, (newScenario.getMap().getNumRows() * 15) + 9);
         indexList.setBounds((newScenario.getMap().getNumCols() * 15) + 50, 80, 200, numberOfLines * 16);
@@ -127,6 +127,7 @@ public class MainView
         mapLabel.setBounds(20, 80, (newScenario.getMap().getNumCols() * 15) + 10, (newScenario.getMap().getNumRows() * 15) + 9);
         
         frame.setSize((newScenario.getMap().getNumCols() * 15) + 290, max((newScenario.getMap().getNumRows() * 15) + 149, (numberOfLines * 16) + 149)); 
+        
     }
     
     public JFrame getFrame()
