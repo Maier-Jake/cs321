@@ -20,31 +20,30 @@ public class Map
     
     private void generateMapTileList()
     {
+        /*
         mapTileList = new ArrayList<>(numCols * numRows);
         int j = 0;
+        */
         if (biomeIndex != 1) {
-            for(int i = 0; i < numCols * numRows; i++)
+            for(int y = 0; y < numRows; y++)
             {
-                int x = i % numRows;
-                int y = i / numRows;
-                int terrainIndex = 0;
+                for(int x = 0; x < numCols; x++)
+                {
+                    int terrainIndex = 0;
+                    // use gaussian noise generator for open biomes
+                    double noise = rand.nextGaussian() * Math.sqrt(terrainClutter) + meanTile;
+                    noise = Math.abs(noise);
+                    if (noise < 1.0) { terrainIndex = 0; }
+                    if (noise > 1.0 && noise < 2.0) { terrainIndex = 1; }
+                    if (noise > 2.0 && noise < 3.0) {terrainIndex = 2; }
 
-                // use gaussian noise generator for open biomes
-                double noise = rand.nextGaussian() * Math.sqrt(terrainClutter) + meanTile;
-                noise = Math.abs(noise);
-                if (noise < 1.0) { terrainIndex = 0; }
-                if (noise > 1.0 && noise < 2.0) { terrainIndex = 1; }
-                if (noise > 2.0 && noise < 3.0) {terrainIndex = 2; }
-                System.out.print(terrainIndex);
-                j = j + 1;
-                if (j >= numCols) { 
-                    System.out.print('\n');
-                    j = 0; 
+                    //MapTile newMapTile = new MapTile(x, y, terrainIndex);
+                    mapTileList.get(y).get(x).setTerrainIndex(terrainIndex);
                 }
-                //MapTile newMapTile = new MapTile(x, y, terrainIndex);
-                mapTileList.get(x).get(y).setTerrainIndex(terrainIndex);
             }
         }
+        
+        
         if (biomeIndex == 2) 
         {
             double doubleCols = (double)numCols; // cast variables to doubles
@@ -89,11 +88,11 @@ public class Map
         numRows = newNumRows;
         biomeIndex = newBiomeIndex;
         mapTileList = new ArrayList<ArrayList<MapTile>>();
-        for (int y = 0; y < numRows; y++)
+        for (int y = 0; y < newNumRows; y++)
         {
             mapTileList.add(new ArrayList<MapTile>());
             
-            for (int x = 0; x < numCols; x++)
+            for (int x = 0; x < newNumCols; x++)
             {
                 mapTileList.get(y).add(new MapTile(x,y,1));
             }

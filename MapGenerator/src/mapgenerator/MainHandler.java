@@ -31,6 +31,7 @@ public class MainHandler
         availableMonsters.add(new Monster(0, 0, "Skeleton", (float) 0.5));
         availableMonsters.add(new Monster(0, 0, "Thug", (float) 0.25));
         availableMonsters.add(new Monster(0, 0, "Bear", 2));
+        availableMonsters.add(new Monster(0, 0, "Dragon", 8));
         
         initialView = new InitialView();
         
@@ -45,7 +46,7 @@ public class MainHandler
                 activeScenario = new Scenario(newMap, newMonsters, newLoots);
                 // activeScenario.setMonsterList(generateMonsterList(15));///////////////////////////////
                 // activeScenario.setLootPileList(generateLootPileList(20,5));
-                initializeMainView(activeScenario);
+                mainView = new MainView(activeScenario, true);
             }
         });
         
@@ -60,38 +61,15 @@ public class MainHandler
                     return;
                 }
                 System.out.println("Scenario Loaded In From File");
-                // activeScenario.setMonsterList(generateMonsterList(15));///////////////////////////////
-                // activeScenario.setLootPileList(generateLootPileList(20,5));
                 mainView = new MainView(activeScenario, true);
-                //mainView.setScenario(activeScenario, true);
-                exportScenario();
+
             }
         });
-        /*
-        mainView.getLootButton().addActionListener(new ActionListener() 
-        {        
-            public void actionPerformed(ActionEvent event) 
-            {
-                lootView.showLootView();
-            }
-        });
-        mainView.getMonsterButton().addActionListener(new ActionListener() 
-        {        
-            public void actionPerformed(ActionEvent event) 
-            {
-                monsterView.showMonsterView();
-            }
-        });
-        */
-        
-        //exportScenario();
-        //mainView = new MainView(new Scenario(new Map(40, 30, 0), new ArrayList<Monster>(), new ArrayList<LootPile>()), false);
-        //mainView.setVisible(false);
     }
-    
+    /*
     private static void initializeMainView(Scenario scenario)
     {
-        mainView = new MainView(scenario, true);
+        
         mainView.getLootButton().addActionListener(new ActionListener() 
         {        
             public void actionPerformed(ActionEvent event) 
@@ -106,21 +84,26 @@ public class MainHandler
                 monsterView.showMonsterView();
             }
         });
+        mainView.getSaveButton().addActionListener((ActionEvent event) -> {
+            exportScenario();
+        });
+        
     }
-    
+    */
     public static ArrayList<Monster> generateMonsterList(Map newMap, ArrayList<LootPile> lootList, int CR)
     {
         ArrayList<Monster> monsterList = new ArrayList<>();
         ArrayList<Monster> correctCRList = new ArrayList<>();
         ArrayList<MapTile> availableTiles = new ArrayList<>();
         
+        //create a list of all available tiles
         for(int y = 0; y < newMap.getMapTiles().size(); ++y)
         {
             for(int x = 0; x < newMap.getMapTiles().get(y).size(); ++x)
             {
                 if(newMap.getMapTiles().get(y).get(x).getTerrainIndex() == 1)
                 {
-                    if(lootList != null && lootList.size() != 0)
+                    if(lootList != null && !lootList.isEmpty())
                     {
                         for(int i = 0; i < lootList.size(); ++i)
                         {
