@@ -7,6 +7,7 @@ import javax.swing.border.Border;
 
 /**
  * This class represents the pop-up gui that enables the user to reroll the lootpiles.
+ * In the MVC architecture it is classified as a view.
  * @author CS 321 Team 1
  */
 public class LootEditView
@@ -21,9 +22,6 @@ public class LootEditView
     JLabel indexList;
     int numberOfLines = 0;
     
-    /**
-    * This 
-    */
     LootEditView(ArrayList<LootPile> lootList)
     {
         frame = new JFrame("Monster Edit");

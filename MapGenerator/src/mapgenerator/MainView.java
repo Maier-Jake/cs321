@@ -1,7 +1,6 @@
 package mapgenerator;
 
 import java.awt.Color;
-import java.awt.event.ActionEvent;
 import static java.lang.Integer.max;
 import javax.swing.*;
  
@@ -9,7 +8,8 @@ import javax.swing.BorderFactory;
 import javax.swing.border.Border;
 
 /**
- *
+ * This class is the main view for the program.
+ * In the MVC architecture it is classified as a view.
  * @author CS 321 Team 1
  */
 public class MainView
@@ -80,15 +80,6 @@ public class MainView
         monsterButton.setBounds(20, 20, 100, 40); 
         lootButton.setBounds(140, 20, 100, 40);
         saveButton.setBounds(260, 20, 100, 40);
-        /*saveButton.addActionListener((ActionEvent event) -> {
-            MainHandler.exportScenario();
-        });
-        lootButton.addActionListener((ActionEvent event) -> {     
-            lootView.showLootView();
-        });
-        monsterButton.addActionListener((ActionEvent event) -> {   
-            monsterView.showMonsterView();
-        });*/
         
         mapLabel.setBounds(20, 80, (newScenario.getMap().getNumCols() * 15) + 10, (newScenario.getMap().getNumRows() * 15) + 9);
         indexList.setBounds((newScenario.getMap().getNumCols() * 15) + 50, 80, 200, numberOfLines * 16);
@@ -100,25 +91,47 @@ public class MainView
         frame.setVisible(isVisible);
     }
     
+    /**
+     *
+     * @return The monster button.
+     */
     public JButton getMonsterButton()
     {
         return monsterButton;
     }
     
+    /**
+     *
+     * @return The loot button.
+     */
     public JButton getLootButton()
     {
         return lootButton;
     }
+
+    /**
+     *
+     * @return The save button.
+     */
     public JButton getSaveButton()
     {
         return saveButton;
     }
     
+    /**
+     *
+     * @return The map icon.
+     */
     public MapIcon getMapIcon()
     {
         return map;
     }
     
+    /**
+     *
+     * @param newScenario The scenario that will be displayed by this view.
+     * @param mapReady A boolean value used for development. 
+     */
     public void setScenario(Scenario newScenario, boolean mapReady)
     {
         map = new MapIcon(newScenario.getMap(), mapReady);
@@ -130,6 +143,10 @@ public class MainView
         
     }
     
+    /**
+     *
+     * @return The frame.
+     */
     public JFrame getFrame()
     {
         return frame;

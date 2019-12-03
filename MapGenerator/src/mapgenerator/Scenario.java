@@ -3,7 +3,8 @@ package mapgenerator;
 import java.util.ArrayList;
 
 /**
- *
+ * This class holds all of the values used for the program.
+ * In the MVC architecture this is classified as the model.
  * @author CS 321 Team 1
  */
 public class Scenario
@@ -19,21 +20,37 @@ public class Scenario
         lootPileList = newLootPileList;
     }
     
+    /**
+     *
+     * @param newMonster
+     */
     public void addMonster(Monster newMonster)
     {
         monsterList.add(newMonster.copyMonster());
     }
     
+    /**
+     *
+     * @param newLootPile
+     */
     public void addLootPile(LootPile newLootPile)
     {
         lootPileList.add(newLootPile.copyLootPile());
     }
     
+    /**
+     *
+     * @return
+     */
     public static Map getMap()
     {
         return currentMap;
     }
     
+    /**
+     *
+     * @return
+     */
     public static ArrayList<Monster> getMonsterList()
     {
         /*ArrayList<Monster> returnList = new ArrayList<>(monsterList.size());
@@ -44,6 +61,10 @@ public class Scenario
         return monsterList;
     }
     
+    /**
+     *
+     * @return
+     */
     public static ArrayList<LootPile> getLootPileList()
     {
         /*ArrayList<LootPile> returnList = new ArrayList<>(lootPileList.size());
@@ -54,11 +75,19 @@ public class Scenario
         return lootPileList;
     }
     
+    /**
+     *
+     * @param newMap
+     */
     public void setMap(Map newMap)
     {
         currentMap = newMap;
     }
     
+    /**
+     *
+     * @param newMonsterList
+     */
     public void setMonsterList(ArrayList<Monster> newMonsterList)
     {
         monsterList.clear();
@@ -68,6 +97,10 @@ public class Scenario
         }
     }
     
+    /**
+     *
+     * @param newLootPileList
+     */
     public void setLootPileList(ArrayList<LootPile> newLootPileList)
     {
         lootPileList.clear();

@@ -14,6 +14,11 @@ public class MapIcon implements Icon
     private final Map map;
     private final boolean mapReady;
     
+    /**
+     *
+     * @param newMap
+     * @param ready
+     */
     public MapIcon(Map newMap, boolean ready)
     {
         map = newMap;
@@ -22,18 +27,33 @@ public class MapIcon implements Icon
         mapReady = ready;
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public int getIconWidth()
     {
         return pixelWidth;
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public int getIconHeight()
     {
         return pixelHeight;
     }
     
+    /**
+     *
+     * @param c
+     * @param g
+     * @param x
+     * @param y
+     */
     @Override
     public void paintIcon(Component c, Graphics g, int x, int y)
     {

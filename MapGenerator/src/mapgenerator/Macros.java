@@ -8,12 +8,31 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /**
- *
+ * This class holds some assignments and parsing code.
  * @author CS 321 Team 1
  */
 public class Macros {
-    public static final int FORESTINDEX = 0, DUNGEONINDEX = 1, SWAMPINDEX = 2;
+
+    /**
+     *
+     */
+    public static final int FORESTINDEX = 0,
+
+    /**
+     *
+     */
+    DUNGEONINDEX = 1,
+
+    /**
+     *
+     */
+    SWAMPINDEX = 2;
     
+    /**
+     *
+     * @param s
+     * @return
+     */
     public static int readInt(String s)
     {
         int number = -1;
@@ -25,6 +44,11 @@ public class Macros {
         return number;
     }
     
+    /**
+     *
+     * @param s
+     * @return
+     */
     public static String readLine(Scanner s)
     {
         String line = "nullLine";
@@ -37,6 +61,11 @@ public class Macros {
         return line;
     }
     
+    /**
+     *
+     * @param s
+     * @return
+     */
     public static int getBiomeIndex(String s)
     {
         switch (s) {
@@ -51,6 +80,12 @@ public class Macros {
                 return -1;
         }
     }
+
+    /**
+     *
+     * @param index
+     * @return
+     */
     public static String convertIndexToBiome(int index)
     {
         switch (index) {
@@ -65,6 +100,11 @@ public class Macros {
         }
     }
     
+    /**
+     *
+     * @param s
+     * @return
+     */
     public static String readChar(Scanner s)
     {
         s.useDelimiter("");
@@ -77,6 +117,12 @@ public class Macros {
         s.useDelimiter(" ");
         return c;
     }
+
+    /**
+     *
+     * @param f
+     * @return
+     */
     public static PrintWriter getPrintWriter(File f)
     {
         try { 
@@ -86,6 +132,13 @@ public class Macros {
             return null;
         }
     }
+
+    /**
+     *
+     * @param src
+     * @param dest
+     * @throws IOException
+     */
     public static void copyFile(File src, File dest) throws IOException {
         Files.copy(src.toPath(), dest.toPath());
     }

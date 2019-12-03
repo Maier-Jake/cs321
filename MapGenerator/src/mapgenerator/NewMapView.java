@@ -3,7 +3,7 @@ package mapgenerator;
 import javax.swing.*; 
 
 /**
- *
+ * This view is used to gather user input to generate a new map.
  * @author CS 321 Team 1
  */
 public class NewMapView
@@ -78,36 +78,64 @@ public class NewMapView
         frame.setVisible(true);
     }
     
+    /**
+     *
+     * @return
+     */
     public JButton getGenerateButton()
     {
         return generateButton;
     }
     
+    /**
+     *
+     * @return
+     */
     public int getMapWidth()
     {
         return Integer.parseInt(mapWidth.getText());
     }
     
+    /**
+     *
+     * @return
+     */
     public int getMapHeight()
     {
         return Integer.parseInt(mapHeight.getText());
     }
     
+    /**
+     *
+     * @return
+     */
     public int getGP()
     {
         return Integer.parseInt(gpNumber.getText());
     }
     
+    /**
+     *
+     * @return
+     */
     public int getItems()
     {
         return Integer.parseInt(itemNumber.getText());
     }
     
+    /**
+     *
+     * @return
+     */
     public int getCR()
     {
         return Integer.parseInt(monsterCR.getText());
     }
     
+    /**
+     *
+     * @return
+     */
     public int getBiome()
     {
         switch((String) mapBiome.getSelectedItem())
@@ -126,6 +154,10 @@ public class NewMapView
         }
     }
     
+    /**
+     *
+     * @return
+     */
     public JFrame getFrame()
     {
         return frame;

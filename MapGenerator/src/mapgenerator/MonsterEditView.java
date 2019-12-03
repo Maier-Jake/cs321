@@ -6,7 +6,8 @@ import javax.swing.*;
 import javax.swing.border.Border;
 
 /**
- *
+ * This view is used to display the current monsters and enter info to generate
+ * new ones.
  * @author CS 321 Team 1
  */
 public class MonsterEditView
@@ -67,21 +68,37 @@ public class MonsterEditView
         frame.setVisible(true);
     }
     
+    /**
+     *
+     * @return
+     */
     public JButton getGenerateButton()
     {
         return generateButton;
     }
     
+    /**
+     *
+     * @return
+     */
     public JButton getCancelButton()
     {
         return cancelButton;
     }
     
+    /**
+     *
+     * @return
+     */
     public int getCR()
     {
         return Integer.parseInt(crText.getText());
     }
     
+    /**
+     *
+     * @return
+     */
     public JFrame getFrame()
     {
         return frame;

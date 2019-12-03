@@ -4,7 +4,8 @@ import static java.lang.Math.floor;
 import java.util.ArrayList;
 
 /**
- *
+ * This class holds the map and falls into the model.
+ * 
  * @author CS 321 Team 1
  */
 public class Map 
@@ -19,6 +20,10 @@ public class Map
     private double meanTile = 1.4;       // the average tile type 
     private double terrainClutter = 0.3; // the amount of clutter the terrain has
     
+    /**
+     * This is where the map is generated. This should perhaps be in the controller 
+     * instead of here, but functionally this made it much easier.
+     */
     private void generateMapTileList()
     {
         if (biomeIndex != 1) {
@@ -74,6 +79,12 @@ public class Map
         }
     }
     
+    /**
+     *
+     * @param newNumCols
+     * @param newNumRows
+     * @param newBiomeIndex
+     */
     public Map(int newNumCols, int newNumRows, int newBiomeIndex/*, double mean, double clutter*/)
     {
         numCols = newNumCols;
@@ -92,6 +103,14 @@ public class Map
         generateMapTileList();
     }
     
+    /**
+     *
+     * @param newNumCols
+     * @param newNumRows
+     * @param newBiomeIndex
+     * @param mean
+     * @param clutter
+     */
     public void generateNewMap(int newNumCols, int newNumRows, int newBiomeIndex, double mean, double clutter)
     {
         numCols = newNumCols;
@@ -103,6 +122,10 @@ public class Map
         generateMapTileList();
     }
     
+    /**
+     *
+     * @return
+     */
     public ArrayList<ArrayList<MapTile>> getMapTiles()
     {
         ArrayList<ArrayList<MapTile>> returnList = new ArrayList<ArrayList<MapTile>>();
@@ -121,57 +144,102 @@ public class Map
         return returnList;
     }
     
+    /**
+     *
+     * @return
+     */
     public int getNumCols()
     {
         return numCols;
     }
     
+    /**
+     *
+     * @return
+     */
     public int getNumRows()
     {
         return numRows;
     }
     
+    /**
+     *
+     * @return
+     */
     public int getBiomeIndex()
     {
         return biomeIndex;
     }
     
+    /**
+     *
+     * @param newNumCols
+     */
     public void setNumCols(int newNumCols)
     {
         numCols = newNumCols;
     }
     
+    /**
+     *
+     * @param newNumRows
+     */
     public void setNumRows(int newNumRows)
     {
         numRows = newNumRows;
     }
     
+    /**
+     *
+     * @param newBiomeIndex
+     */
     public void setBiomeIndex(int newBiomeIndex)
     {
         biomeIndex = newBiomeIndex;
     }
     
+    /**
+     *
+     * @return
+     */
     public double getTerrainClutter() 
     {
         return terrainClutter;
     }
     
+    /**
+     *
+     * @param newTerrainClutter
+     */
     public void setTerrainClutter(double newTerrainClutter) 
     {
         terrainClutter = newTerrainClutter;
     }
     
+    /**
+     *
+     * @return
+     */
     public double getTerrainAverage() 
     {
         return meanTile;
     }
     
+    /**
+     *
+     * @param newMeanTile
+     */
     public void setTerrainAverage(double newMeanTile) 
     {
         meanTile = newMeanTile;
     }
 
     // Assumes that numcols and numrows are the same for current and new maps
+
+    /**
+     *
+     * @param newMap
+     */
     public void setMap(ArrayList<ArrayList<MapTile>> newMap)
     {
         mapTileList.clear();
@@ -188,6 +256,9 @@ public class Map
         }
     }
     
+    /**
+     *
+     */
     public void printMap()
     {
         System.out.println();

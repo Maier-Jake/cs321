@@ -1,7 +1,8 @@
 package mapgenerator;
 
 /**
- *
+ * This class represents the info of a single loot pile and is used as a part
+ * of the model.
  * @author CS 321 Team 1
  */
 public class LootPile

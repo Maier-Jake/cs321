@@ -11,7 +11,8 @@ import java.awt.event.*;
 import static java.lang.Math.floor;
 
 /**
- *
+ * This class serves as the main class for the program.
+ * In the MVC architecture, this class in the controller.
  * @author CS 321 Team 1
  */
 public class MainHandler 
@@ -25,6 +26,12 @@ public class MainHandler
     private static ArrayList<Monster> availableMonstersInDungeon;
     private static ArrayList<Monster> availableMonstersInSwamp;
     
+    /**
+     * Main serves to start the program and initialize the monster databases 
+     * and InitialView.
+     * @param args
+     * @throws InterruptedException
+     */
     public static void main(String[] args) throws InterruptedException 
     {
         setUpDatabase();
@@ -133,6 +140,13 @@ public class MainHandler
         });
     }
     
+    /**
+     *
+     * @param newMap The map the monsters will be positioned onto.
+     * @param lootList The loot list currently on the above map.
+     * @param CR The new Challenge Rating for the monsters.
+     * @return An ArrayList of the new monsters.
+     */
     public static ArrayList<Monster> generateMonsterList(Map newMap, ArrayList<LootPile> lootList, int CR)
     {
         ArrayList<Monster> monsterList = new ArrayList<>();
@@ -260,6 +274,14 @@ public class MainHandler
         return monsterList;
     }
     
+    /**
+     *
+     * @param newMap The map the loot piles will be positioned on.
+     * @param monsterList The list of monsters already on the map.
+     * @param GP The amount of gold pieces in the new loot piles.
+     * @param items The amount of items in the new loot piles.
+     * @return An ArrayList of the new loot piles.
+     */
     public static ArrayList<LootPile> generateLootPileList(Map newMap, ArrayList<Monster> monsterList, int GP, int items)
     {
         ArrayList<LootPile> lootPileList = new ArrayList<>();
@@ -511,7 +533,9 @@ public class MainHandler
         return new Scenario(newMap, monsterList, lootList);
     }
     
-    
+    /**
+     * Export scenario is used to save the scenario to a file.
+     */
     public static void exportScenario()
     {
         String fileName = "";
