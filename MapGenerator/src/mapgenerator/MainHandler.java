@@ -1,13 +1,11 @@
 package mapgenerator;
 
-import java.awt.*;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.filechooser.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.NoSuchElementException;
 import java.io.File;
 import java.awt.event.*;
 import static java.lang.Math.floor;

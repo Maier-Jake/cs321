@@ -3,7 +3,8 @@ package mapgenerator;
 import javax.swing.*; 
 
 /**
- *
+ * This class is the first GUI that the user will see. It has buttons to
+ *    create a new scenario or load in a previously saved one.
  * @author CS 321 Team 1
  */
 public class InitialView
@@ -12,6 +13,9 @@ public class InitialView
     JButton newMapButton;
     JButton loadMapButton;
     
+    /**
+    * This constructor builds the initialview.
+    */
     InitialView()
     {
         frame = new JFrame("Initial View");
@@ -32,16 +36,29 @@ public class InitialView
         frame.setVisible(true);
     }
     
+    /**
+     * This method is used by the mainhandler to gain access to the "New Map" button on the InitialView.
+     * @return the reference to the button in initialView
+     */
     public JButton getNewMapButton()
     {
         return newMapButton;
     }
     
+    /**
+     * This method is used by the mainhandler to gain access to the "Load Map" button on the InitialView.
+     * @return the reference to the button in initialView
+     */
     public JButton getLoadMapButton()
     {
         return loadMapButton;
     }
     
+    /**
+     * This method is used by the mainhandler to gain access to the guiFrame of the InitialView.
+     * This is used to show and hide the GUI.
+     * @return the reference to the initialview frame.
+     */
     public JFrame getFrame()
     {
         return frame;

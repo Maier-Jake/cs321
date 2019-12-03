@@ -6,7 +6,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 
 /**
- *
+ * This class represents the pop-up gui that enables the user to reroll the lootpiles.
  * @author CS 321 Team 1
  */
 public class LootEditView
@@ -21,6 +21,9 @@ public class LootEditView
     JLabel indexList;
     int numberOfLines = 0;
     
+    /**
+    * This 
+    */
     LootEditView(ArrayList<LootPile> lootList)
     {
         frame = new JFrame("Monster Edit");
@@ -77,26 +80,46 @@ public class LootEditView
         frame.setVisible(true);
     }
     
+    /**
+     *
+     * @return
+     */
     public JButton getGenerateButton()
     {
         return generateButton;
     }
     
+    /**
+     *
+     * @return
+     */
     public JButton getCancelButton()
     {
         return cancelButton;
     }
     
+    /**
+     *
+     * @return
+     */
     public int getGP()
     {
         return Integer.parseInt(gpText.getText());
     }
     
+    /**
+     *
+     * @return
+     */
     public int getItems()
     {
         return Integer.parseInt(itemText.getText());
     }
     
+    /**
+     *
+     * @return
+     */
     public JFrame getFrame()
     {
         return frame;
