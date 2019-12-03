@@ -23,15 +23,13 @@ public class MainHandler
     private static MainView mainView;
     private static NewMapView newMapView;
     private static ArrayList<Monster> availableMonsters;
+    private static ArrayList<Monster> availableMonstersInForest;
+    private static ArrayList<Monster> availableMonstersInDungeon;
+    private static ArrayList<Monster> availableMonstersInSwamp;
     
     public static void main(String[] args) throws InterruptedException 
     {
-        availableMonsters = new ArrayList<>();
-        availableMonsters.add(new Monster(0, 0, "Orc", 1));
-        availableMonsters.add(new Monster(0, 0, "Skeleton", (float) 0.5));
-        availableMonsters.add(new Monster(0, 0, "Thug", (float) 0.25));
-        availableMonsters.add(new Monster(0, 0, "Bear", 2));
-        availableMonsters.add(new Monster(0, 0, "Dragon", 8));
+        setUpDatabase();
         
         initialView = new InitialView();
         
@@ -171,32 +169,94 @@ public class MainHandler
         
         boolean keepRunning = true;
         float workingCR = CR;
-        while(keepRunning)
+        if(newMap.getBiomeIndex() == 1)
         {
-            for(int i = 0; i < availableMonsters.size(); ++i)
+            while(keepRunning)
             {
-                if(availableMonsters.get(i).getCR() < workingCR)
+                for(int i = 0; i < availableMonstersInDungeon.size(); ++i)
                 {
-                    correctCRList.add(availableMonsters.get(i));
+                    if(availableMonstersInDungeon.get(i).getCR() < workingCR)
+                    {
+                        correctCRList.add(availableMonstersInDungeon.get(i));
+                    }
+                }
+                if(correctCRList.size() != 0 && availableTiles.size() > 1)
+                {
+                    int monsterIndex = (int) floor(Math.random() * correctCRList.size());
+                    Monster newMonster = correctCRList.get(monsterIndex).copyMonster();
+                    int tileIndex = (int)floor(Math.random() * (availableTiles.size() - 1));
+                    newMonster.setCoords(availableTiles.get(tileIndex).getCoords().getX(), 
+                            availableTiles.get(tileIndex).getCoords().getY());
+                    availableTiles.remove(tileIndex);
+                    monsterList.add(newMonster);
+                    workingCR = workingCR - newMonster.getCR();
+                    correctCRList.clear();
+                }
+                else
+                {
+                    keepRunning = false;
                 }
             }
-            if(correctCRList.size() != 0 && availableTiles.size() > 1)
+        }
+        else if(newMap.getBiomeIndex() == 2)
+        {
+            while(keepRunning)
             {
-                int monsterIndex = (int) floor(Math.random() * correctCRList.size());
-                Monster newMonster = correctCRList.get(monsterIndex).copyMonster();
-                int tileIndex = (int)floor(Math.random() * (availableTiles.size() - 1));
-                newMonster.setCoords(availableTiles.get(tileIndex).getCoords().getX(), 
-                        availableTiles.get(tileIndex).getCoords().getY());
-                availableTiles.remove(tileIndex);
-                monsterList.add(newMonster);
-                workingCR = workingCR - newMonster.getCR();
-                correctCRList.clear();
-            }
-            else
-            {
-                keepRunning = false;
+                for(int i = 0; i < availableMonstersInSwamp.size(); ++i)
+                {
+                    if(availableMonstersInSwamp.get(i).getCR() < workingCR)
+                    {
+                        correctCRList.add(availableMonstersInSwamp.get(i));
+                    }
+                }
+                if(correctCRList.size() != 0 && availableTiles.size() > 1)
+                {
+                    int monsterIndex = (int) floor(Math.random() * correctCRList.size());
+                    Monster newMonster = correctCRList.get(monsterIndex).copyMonster();
+                    int tileIndex = (int)floor(Math.random() * (availableTiles.size() - 1));
+                    newMonster.setCoords(availableTiles.get(tileIndex).getCoords().getX(), 
+                            availableTiles.get(tileIndex).getCoords().getY());
+                    availableTiles.remove(tileIndex);
+                    monsterList.add(newMonster);
+                    workingCR = workingCR - newMonster.getCR();
+                    correctCRList.clear();
+                }
+                else
+                {
+                    keepRunning = false;
+                }
             }
         }
+        else
+        {
+            while(keepRunning)
+            {
+                for(int i = 0; i < availableMonstersInForest.size(); ++i)
+                {
+                    if(availableMonstersInForest.get(i).getCR() < workingCR)
+                    {
+                        correctCRList.add(availableMonstersInForest.get(i));
+                    }
+                }
+                if(correctCRList.size() != 0 && availableTiles.size() > 1)
+                {
+                    int monsterIndex = (int) floor(Math.random() * correctCRList.size());
+                    Monster newMonster = correctCRList.get(monsterIndex).copyMonster();
+                    int tileIndex = (int)floor(Math.random() * (availableTiles.size() - 1));
+                    newMonster.setCoords(availableTiles.get(tileIndex).getCoords().getX(), 
+                            availableTiles.get(tileIndex).getCoords().getY());
+                    availableTiles.remove(tileIndex);
+                    monsterList.add(newMonster);
+                    workingCR = workingCR - newMonster.getCR();
+                    correctCRList.clear();
+                }
+                else
+                {
+                    keepRunning = false;
+                }
+            }
+        }
+            
         
         
         return monsterList;
@@ -278,12 +338,49 @@ public class MainHandler
         return lootPileList;
     }
     
+    private static void setUpDatabase()
+    {
+        availableMonsters = new ArrayList<>();
+        availableMonsters.add(new Monster(0, 0, "Orc", 1));
+        availableMonsters.add(new Monster(0, 0, "Skeleton", (float) 0.5));
+        availableMonsters.add(new Monster(0, 0, "Thug", (float) 0.25));
+        availableMonsters.add(new Monster(0, 0, "Bear", 2));
+        availableMonsters.add(new Monster(0, 0, "Dragon", 8));
+        
+        availableMonstersInForest = new ArrayList<>();
+        availableMonstersInForest.add(new Monster(0, 0, "Panther", (float) 0.25));
+        availableMonstersInForest.add(new Monster(0, 0, "Polar Bear", (float) 2));
+        availableMonstersInForest.add(new Monster(0, 0, "Giant Boar", (float) 2));
+        availableMonstersInForest.add(new Monster(0, 0, "Warg", (float) 0.5));
+        availableMonstersInForest.add(new Monster(0, 0, "Wolf", (float) 0.25));
+        availableMonstersInForest.add(new Monster(0, 0, "Elk", (float) 0.25));
+        availableMonstersInForest.add(new Monster(0, 0, "Assassin", (float) 8));
+        availableMonstersInForest.add(new Monster(0, 0, "Giant Rat", (float) 0.125));
+        
+        availableMonstersInDungeon = new ArrayList<>();
+        availableMonstersInDungeon.add(new Monster(0, 0, "Assassin", (float) 8));
+        availableMonstersInDungeon.add(new Monster(0, 0, "Wight", (float) 3));
+        availableMonstersInDungeon.add(new Monster(0, 0, "Zombie", (float) 0.25));
+        availableMonstersInDungeon.add(new Monster(0, 0, "Skeleton", (float) 0.25));
+        availableMonstersInDungeon.add(new Monster(0, 0, "Ogre Zombie", (float) 2));
+        availableMonstersInDungeon.add(new Monster(0, 0, "Giant Rat", (float) 0.125));
+        
+        availableMonstersInSwamp = new ArrayList<>();
+        availableMonstersInSwamp.add(new Monster(0, 0, "Warg", (float) 0.5));
+        availableMonstersInSwamp.add(new Monster(0, 0, "Wolf", (float) 0.25));
+        availableMonstersInSwamp.add(new Monster(0, 0, "Giant Centipede", (float) 0.25));
+        availableMonstersInSwamp.add(new Monster(0, 0, "Giant Frog", (float) 0.25));
+        availableMonstersInSwamp.add(new Monster(0, 0, "Giant Poisonous Snake", (float) 0.25));
+        availableMonstersInSwamp.add(new Monster(0, 0, "Flying Snake", (float) 0.125));
+        
+    }
+    
     /**
      * loadScenario is used to read in a .scenario file
      * line by line to generate a new Scenario file to
      * be used by the program
      */
-    private static Scenario loadScenario(/*Scanner s*/) 
+    private static Scenario loadScenario() 
     {
         JFrame frame = new JFrame();
         Scanner infile = null;

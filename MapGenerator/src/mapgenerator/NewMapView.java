@@ -29,9 +29,9 @@ public class NewMapView
         frame = new JFrame("New Scenario");
         
         generateButton = new JButton("Generate Scenario");
-        mapWidth = new JTextField("10");
-        mapHeight = new JTextField("10");
-        monsterCR = new JTextField("3");
+        mapWidth = new JTextField("15");
+        mapHeight = new JTextField("15");
+        monsterCR = new JTextField("2");
         gpNumber = new JTextField("25");
         itemNumber = new JTextField("3");
         String s1[] = {"Forest", "Dungeon", "Swamp"};

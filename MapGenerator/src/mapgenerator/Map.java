@@ -1,5 +1,6 @@
 package mapgenerator;
 
+import static java.lang.Math.floor;
 import java.util.ArrayList;
 
 /**
@@ -20,10 +21,6 @@ public class Map
     
     private void generateMapTileList()
     {
-        /*
-        mapTileList = new ArrayList<>(numCols * numRows);
-        int j = 0;
-        */
         if (biomeIndex != 1) {
             for(int y = 0; y < numRows; y++)
             {
@@ -42,42 +39,37 @@ public class Map
                 }
             }
         }
-        
-        
-        if (biomeIndex == 2) 
+        if(biomeIndex == 1)
         {
-            double doubleCols = (double)numCols; // cast variables to doubles
-            double doubleRows = (double)numRows;
-
-            int curX = 0; // current index in the data arrays
-            int curY = 0;
-
-            int[][] starts = new int[numCols*numRows][2]; // build data arrays
-            int[][] ends = new int[numCols*numRows][2];
-
-            int startCol = (int)Math.round(rand.nextDouble()*doubleCols); // create starting point
-            int startRow = (int)Math.round(rand.nextDouble()*doubleRows);
-
-            starts[curX][0] = startCol; // fill starting point in data arrays
-            starts[curX][1] = startRow;
-
-            int col = startCol;
-            int row = startRow;
-            // begin loop
-            while(curX < (numCols*numRows)-2){              // loop through data arrays
-                curX++; // increment x value
-
-                double dir = rand.nextDouble() * 4.0;       // choose direction
-                if (dir < 1.0) {col = col + 1;}                // North
-                if (dir >= 1.0 && dir < 2.0) {col = col - 1;}  // South
-                if (dir >= 2.0 && dir < 3.0) {row = row + 1;}  // East
-                if (dir >= 3.0) {row = row - 1;}               // West
-
-                ends[curX][0] = col;       // fill current ends with the new coordinate
-                ends[curX][1] = row;
-
-                starts[curX+1][0] = col;   // fill next start with current coordinate
-                starts[curX+1][1] = row;
+            for(int y = 0; y < numRows; y++)
+            {
+                for(int x = 0; x < numCols; x++)
+                {
+                    mapTileList.get(y).get(x).setTerrainIndex(0);
+                }
+            }
+            
+            int yLower = (int) (2 + floor(Math.random() * numRows / 5));
+            int yUpper = (int) (numRows - 2 - floor(Math.random() * numRows / 5));
+            int xLower = (int) (2 + floor(Math.random() * numCols / 5));
+            int xUpper = (int) (numCols - 2 - floor(Math.random() * numCols / 5));
+            
+            for(int y = yLower; y < yUpper; y++)
+            {
+                for(int x = xLower; x < xUpper; x++)
+                {
+                    mapTileList.get(y).get(x).setTerrainIndex(1);
+                }
+            }
+            
+            for(int y = 0; y < yLower; y++)
+            {
+                mapTileList.get(y).get(xLower).setTerrainIndex(1);
+            }
+            
+            for(int x = xUpper; x < numCols; x++)
+            {
+                mapTileList.get(yUpper - 1).get(x).setTerrainIndex(1);
             }
         }
     }
